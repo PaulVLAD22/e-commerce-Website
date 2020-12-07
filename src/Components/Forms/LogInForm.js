@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const  LogInApp = () => {
   const [password,setPassword] = useState('');
   const [email,setEmail] = useState('');
@@ -14,25 +13,30 @@ const  LogInApp = () => {
       console.log('empty values');
     }
   };
+  const onChangeEmail = (e)=>{
+    setEmail(e.target.value);
+  }
+  const onChangePassword = (e)=>{
+    setPassword(e.target.value);
+  }
   
   return (
     <>
     <article>
       <form className="form" onSubmit={handleSubmit}>
-        <div className='form-control'>
+        <div className='form-control row'>
           <label htmlFor="email">Email : </label>
           <input value={email}
-          onChange={(e)=>setEmail(e.target.value)}
+          onChange={onChangeEmail}
            type="email" id="email" name="email"/>
         </div>
-        <div className='form-control'>
+        <div className='form-control row'>
           <label htmlFor="password">Password : </label>
-          <input value={password} 
-          onChange={(e) => setPassword(e.target.value)}
+          <input value={password}
+          onChange={onChangePassword}
            type="password" id="password" name="password"/>
         </div>
-        
-        <button type="submit">add person</button>
+        <button type="submit">Log in</button>
       </form>
     </article>
     </>
