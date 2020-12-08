@@ -7,7 +7,7 @@ const  SignUpApp = () => {
 
   const handleSubmit= (e) =>{
     e.preventDefault();
-    if (confirmPassword && password && email){
+    if (validInput()){
       setConfirmPassword('');
       setPassword('');
       setEmail('');
@@ -24,6 +24,29 @@ const  SignUpApp = () => {
   }
   const onChangeConfirmPassword = (e)=>{
     setConfirmPassword(e.target.value);
+  }
+  const validInput = () =>{
+    if (!password || !email || !confirmPassword){
+      return false;
+    }
+    if (password!=confirmPassword){
+      document.getElementById('password').style.color="red";
+      return false;
+    }
+    if (password.length<7){
+      document.getElementById('password').style.color="red";
+      return false;
+    }
+    if (confirmPassword.length<7){
+      document.getElementById('confirmPassword').style.color="red";
+      return false;
+    }
+
+    if (!(email.includes("@"))){
+      document.getElementById('email').style.color="red";
+      return false;
+    }
+    return true;
   }
   
   return (

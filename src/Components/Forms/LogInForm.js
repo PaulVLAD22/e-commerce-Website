@@ -5,7 +5,7 @@ const  LogInApp = () => {
   const [email,setEmail] = useState('');
   const handleSubmit= (e) =>{
     e.preventDefault();
-    if (password && email){
+    if (validInput()){
       setPassword('');
       setEmail('');
     }
@@ -18,6 +18,20 @@ const  LogInApp = () => {
   }
   const onChangePassword = (e)=>{
     setPassword(e.target.value);
+  }
+  const validInput = () =>{
+    if (!password || !email){
+      return false;
+    }
+    if (password.length<7){
+      document.getElementById('password').style.color="red";
+      return false;
+    }
+    if (!(email.includes("@"))){
+      document.getElementById('email').style.color="red";
+      return false;
+    }
+    return true;
   }
   
   return (

@@ -1,5 +1,15 @@
-import {TVs} from '../data/TVs';
+import TvRow from '../Components/Rows/TvRow';
+import {tvs} from '../data/tvs';
+
 function TvsList(){
-    return <h2>TELEVIZOARE</h2>
+    return (
+        <div className="container">
+            {tvs.map((tvRow,index)=>{
+             return (
+                 <TvRow key={index} {...tvRow} ></TvRow>
+             )
+            })}
+        </div>
+    )
 }
 export default TvsList;
