@@ -4,7 +4,7 @@ const Smartphone = ({id,img,descr,name,brand,price})=>{
   return (
     <div className="container-product d-flex flex-column align-items-center justify-content-center col-8 col-xl-2 col-lg-3 col-md-4 col-sm-4 " id={id}>
        <picture className="container container-img ">
-         <img src={img} className="img-fluid img-thumbnail"></img>
+         <img src={img} className="img-fluid img-thumbnail" alt={name}></img>
         </picture>
         <h2 className='product-descr  text-justify text-center'>
           <h3>{name}</h3>
