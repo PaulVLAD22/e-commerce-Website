@@ -36,15 +36,9 @@ function ProductsApp() {
                 </li>
             </ul>
         </nav>
-        {productType === 0 &&
-        <LaptopsList></LaptopsList>
-        }
-        {productType === 1 &&
-        <SmartphonesList></SmartphonesList>
-        }
-        {productType === 2 &&
-        <TvsList></TvsList>
-        }
+        {productType === 0 ? (<LaptopsList/>) : null }
+        {productType === 1 ? (<SmartphonesList/>) : null }
+        {productType === 2 ? (<TvsList/>) : null }
         
         
     </>
