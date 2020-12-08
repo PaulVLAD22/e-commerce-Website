@@ -1,7 +1,11 @@
 import React,{useState} from 'react';
 
 function CheckoutApp (){
-  return <h2>Checkout App</h2>
+  return (
+    <div className="d-flex flex-column">
+      
+    </div>
+  );
 }
 
 export default CheckoutApp;
