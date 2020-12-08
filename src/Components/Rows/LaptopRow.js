@@ -3,7 +3,7 @@ import Laptop from '../Laptop';
 
 const LaptopRow = (laptops) =>{  
   return (
-    <div className='row justify-content-around'>
+    <div className='row justify-content-around my-row'>
       {Object.keys(laptops).map((key,index)=>{
         return (
           <Laptop key={index} {...laptops[key]}  ></Laptop>

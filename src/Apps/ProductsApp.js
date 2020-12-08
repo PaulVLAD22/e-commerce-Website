@@ -4,7 +4,6 @@ import LaptopsList from '../ItemLists/LaptopsList.js';
 import SmartphonesList from '../ItemLists/SmartphonesList';
 import TvsList from '../ItemLists/TvsList';
 
-
 // 0 - laptops
 // 1 - phones
 // 2- Tvs 
@@ -46,6 +45,7 @@ function ProductsApp() {
         {productType === 2 &&
         <TvsList></TvsList>
         }
+        
         
     </>
     );

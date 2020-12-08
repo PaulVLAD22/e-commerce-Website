@@ -3,7 +3,7 @@ import {tvs} from '../data/tvs';
 
 function TvsList(){
     return (
-        <div className="container">
+        <div className="container-fluid">
             {tvs.map((tvRow,index)=>{
              return (
                  <TvRow key={index} {...tvRow} ></TvRow>

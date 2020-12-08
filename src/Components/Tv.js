@@ -6,7 +6,11 @@ const Tv = ({id,img,descr,name,brand,price})=>{
        <picture className="container container-img ">
          <img src={img} className="img-fluid img-thumbnail"></img>
         </picture>
-        <h2 className='product-descr  text-justify'>{name+" "+descr+" - "+price}</h2>
+        <h2 className='product-descr  text-justify text-center'>
+          <h3>{name}</h3>
+          <h3>{descr}</h3>
+          <h3>{price}</h3>
+        </h2>
         <button className='btn btn-light'>Add to cart</button>
     </div>
   )

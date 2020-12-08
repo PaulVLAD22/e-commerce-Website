@@ -1,12 +1,9 @@
 import SmartphoneRow from '../Components/Rows/SmartphoneRow';
 import {smartphones} from '../data/smartphones';
 
-//format smartphones array into subarrays of 3 elements
-
-
 function SmartphonesList(){
     return (
-        <div className="container">
+        <div className="container-fluid">
             {smartphones.map((smartphoneRow,index)=>{
              return (
                  <SmartphoneRow key={index} {...smartphoneRow} ></SmartphoneRow>

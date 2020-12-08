@@ -104,6 +104,7 @@ footer {
   text-align: center;
   color:white;
 }
+
 .navbar-aux a{
   font-size:1.5rem;
   letter-spacing: 0.1rem;
@@ -115,6 +116,7 @@ footer {
   padding:1rem;
   margin:2rem;
   background-color:var(--clr-grey-10);
+  border-radius: 2rem;
 
 }
 .container-product h2{
@@ -126,11 +128,20 @@ footer {
   height:130px;
 }
 .product-descr{
-  max-height:80px;
+  max-height:200px;
+}
+.product-descr h3{
+  font-size:0.9rem;
+  font-weight: bold;
+}
+.product-descr li{
+  font-size:0.9rem;
+  font-weight: normal;
 }
 .container-product button{
   background-color: var(--clr-orange-3);
 }
+
 
 
 @media (max-width: 576px) {
@@ -145,6 +156,12 @@ footer {
   }
   h3{
     font-size:0.8rem;
+  }
+  .container-product{
+    border-radius: 1rem;
+  }
+  .nav-item{
+    margin-right:10px;
   }
 }
 
