@@ -4,7 +4,7 @@ import './index.css';
 import ProductsApp from './Apps/ProductsApp';
 import AuthentificationApp from './Apps/AuthentificationApp';
 import CheckoutApp from './Apps/CheckoutApp';
-import MainNavBar from './Apps/MainNavBar';
+import MainNavBar from './Components/navbars/MainNavBar';
 function displayProductsApp(){
   ReactDOM.render(
     <ProductsApp/>,

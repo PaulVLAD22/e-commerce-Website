@@ -1,47 +1,40 @@
 import React,{useState} from 'react';
 import  '../index.css';
-import LaptopsList from '../ItemLists/LaptopsList.js';
-import SmartphonesList from '../ItemLists/SmartphonesList';
-import TvsList from '../ItemLists/TvsList';
-import Spring from 'react-spring/renderprops'
-
-// 0 - laptops
-// 1 - phones
-// 2- Tvs 
-// change productType with useStatus
+import ProductList from '../Components/ProductList';
+import {productNames} from '../data/productNames';
 function ProductsApp() {
-    const [productType,setProductType]=useState(0);
+  const [productName,setProductName]=useState("Laptop");
+  const [productNameIndex,setProductNameIndex] = useState(0);
 
-    const displayLaptops=()=>{
-        setProductType(0);
-    }
-    const displaySmartphones=()=>{
-        setProductType(1);
-    }
-    const displayTvs=()=>{
-        setProductType(2);
-    }
+  const displayProduct=(event)=>{
+    setProductName(event.target.id);
+  }
+  const decreaseProductNameIndex = ()=>{
+    if (productNameIndex>=3)
+        setProductNameIndex(productNameIndex-3);
+  }
+  const increaseProductNameIndex = ()=>{
+    if (productNameIndex<productNames.length-3)
+        setProductNameIndex(productNameIndex-3);
+  }
 
     return (
         <>
         <nav className="navbar navbar-aux bg-light justify-content-center">
             <ul className="navbar-nav align-items-center justify-content-between flex-row">
-                <li className="nav-item active">
-                    <a className="nav-link" onClick={displayLaptops}>Laptops</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" onClick={displaySmartphones}>Smartphones</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" onClick={displayTvs}>TVs</a>
-                </li>
+            <button className="btn btn-primary" onClick={decreaseProductNameIndex}>&#60;</button>
+                {productNames.slice(productNameIndex,productNameIndex+3).map((productName,index)=>{
+                    console.log(productName);
+                return (
+                    <li className="nav-item">
+                        <a className="nav-link" onClick={displayProduct} id={productName}>{productName}</a>
+                    </li>
+                )
+                })}
+            <button className='btn btn-primary' onClick={increaseProductNameIndex}>&#62;</button>
             </ul>
         </nav>
-        {productType === 0 ? (<LaptopsList/>) : null }
-        {productType === 1 ? (<SmartphonesList/>) : null }
-        {productType === 2 ? (<TvsList/>) : null }
-        
-        
+        <ProductList key={productName} productName={productName}></ProductList>
     </>
     );
 }

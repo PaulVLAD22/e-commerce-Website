@@ -1,6 +1,7 @@
 import React from 'react';
 import {Spring} from 'react-spring/renderprops';
-const Laptop = ({id,img,name,brand,cpu,storage,gpu,price})=>{
+const Product = ({id,img,name,brand,descr,price})=>{
+  console.log(id,img,brand,descr,price);
   return (
     <Spring
     from = {{opacity:0,marginTop:500}}
@@ -13,15 +14,12 @@ const Laptop = ({id,img,name,brand,cpu,storage,gpu,price})=>{
           </picture>
           <h2 className='product-descr  text-justify text-center'>
             <h3>{name}</h3>
-            <ul className="laptop-comp">
-              <li>CPU: {cpu}</li>
-              <li>Storage: {storage}</li>
-              <li>GPU: {gpu}</li>
-            </ul>
+            <h3>{descr}</h3>
             <h3>{price}$</h3>
           </h2>
       </div>
-      )}</Spring>
+      )}
+      </Spring>
   )
 }
-export default Laptop;
+export default Product;
