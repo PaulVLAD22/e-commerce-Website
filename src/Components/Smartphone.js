@@ -14,7 +14,7 @@ const Smartphone = ({id,img,descr,name,brand,price})=>{
             <h2 className='product-descr  text-justify text-center'>
               <h3>{name}</h3>
               <h3>{descr}</h3>
-              <h3>{price}</h3>
+              <h3>{price}$</h3>
             </h2>
         </div>
       )}

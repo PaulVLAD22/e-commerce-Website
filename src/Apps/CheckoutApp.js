@@ -8,15 +8,16 @@ const CheckoutApp = ()=> {
     from={{marginTop:400}}
     to ={{marginTop:0}}
     >{props =>(
-      <div style={props} className=" container col-12 h-100 justify-content-center">
-        <div className="container bg-primary d-flex flex-column col-5 ">
+        <div style={props} className="container d-flex flex-column justify-content-center col-8 col-xl-4 cl-lg-4 col-md-6 col-sm-8">
           {cartItems.map(((cartItem,index)=>{
             return (
               <CartItem key={index} {...cartItem}></CartItem>
             );
           }))}
+          <div className="row justify-content-center">
+          <button className="btn btn-dark col-4">Confirm order</button>
+          </div>
         </div>
-      </div>
     )}</Spring>
   );
 }

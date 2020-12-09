@@ -111,6 +111,20 @@ footer {
   margin-left:20px;
   padding:2rem;
 }
+.container-cart{
+  padding:1rem 2rem 1rem 2rem;
+  margin-top:2rem;
+  margin-bottom:2rem;
+}
+.container-cart ul{
+  font-size: 1rem;
+  font-weight: bold;
+}
+.container-cart button{
+  font-size: 0.5rem;
+  padding:0.4rem;
+  margin:0 0.2rem 0 0.2rem;
+}
 
 .container-product{
   padding:1rem;
@@ -126,7 +140,6 @@ footer {
   cursor: pointer;
   background-color:var(--clr-orange-3);
 }
-
 .container-img{
   width:150px;
   height:130px;
