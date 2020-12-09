@@ -8,6 +8,7 @@ const  SignUpApp = () => {
   const handleSubmit= (e) =>{
     e.preventDefault();
     if (validInput()){
+      
       setConfirmPassword('');
       setPassword('');
       setEmail('');
