@@ -36,7 +36,7 @@ const  LogInApp = () => {
   
   return (
     <>
-    <article>
+    <article >
       <form className="form" onSubmit={handleSubmit}>
         <div className='form-control row'>
           <label htmlFor="email">Email : </label>
@@ -50,7 +50,7 @@ const  LogInApp = () => {
           onChange={onChangePassword}
            type="password" id="password" name="password"/>
         </div>
-        <button type="submit">Log in</button>
+        <button className="btn-dark" type="submit">Log in</button>
       </form>
     </article>
     </>

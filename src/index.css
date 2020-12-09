@@ -117,12 +117,16 @@ footer {
   margin:2rem;
   background-color:var(--clr-grey-10);
   border-radius: 2rem;
+}
+.container-product li:hover{
+  font-style: oblique;
+  font-weight: bold;
+}
+.container-product:hover{
+  cursor: pointer;
+  background-color:var(--clr-orange-3);
+}
 
-}
-.container-product h2{
-  font-size:1rem;
-  overflow-wrap: normal;
-}
 .container-img{
   width:150px;
   height:130px;
@@ -137,9 +141,6 @@ footer {
 .product-descr li{
   font-size:0.9rem;
   font-weight: normal;
-}
-.container-product button{
-  background-color: var(--clr-orange-3);
 }
 
 

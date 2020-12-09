@@ -71,7 +71,7 @@ const  SignUpApp = () => {
           onChange={onChangeConfirmPassword}
            type="password" id="confirmPassword" name="confirmPassword"/>
         </div>
-        <button type="submit">Register</button>
+        <button className="btn-dark" type="submit">Register</button>
       </form>
     </article>
     </>

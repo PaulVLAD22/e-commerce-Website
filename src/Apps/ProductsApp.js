@@ -3,6 +3,7 @@ import  '../index.css';
 import LaptopsList from '../ItemLists/LaptopsList.js';
 import SmartphonesList from '../ItemLists/SmartphonesList';
 import TvsList from '../ItemLists/TvsList';
+import Spring from 'react-spring/renderprops'
 
 // 0 - laptops
 // 1 - phones

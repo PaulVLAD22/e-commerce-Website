@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import '../authentification.css';
 import LogInForm from '../Components/Forms/LogInForm';
 import SignUpForm from '../Components/Forms/SignUpForm';
+import {Spring} from 'react-spring/renderprops';
 
 function AuthentificationApp(){
   const [buttonMsg,setButtonMsg]=useState('Sign in');
@@ -13,17 +14,22 @@ function AuthentificationApp(){
   }
   // NU MERGE SA SE FACA Log in PT CA NU EXISTA SIgn IN FORM , FA L .
   return  (
-    <div className='d-flex flex-column justify-content-center'>
-      <button className="btn btn-primary" onClick={changeAuthentification}>
-        {buttonMsg}
-      </button>
-      {buttonMsg === 'Sign in' &&
-        <LogInForm></LogInForm>
-      }
-      {buttonMsg === 'Log in' &&
-        <SignUpForm></SignUpForm>
-      }
-    </div>
+    <Spring
+    from={{opacity:0}}
+    to ={{opacity:1}}
+    >{props =>(
+      <div style={props} className='d-flex flex-column justify-content-center'>
+        <button className="btn btn-primary" onClick={changeAuthentification}>
+          {buttonMsg}
+        </button>
+        {buttonMsg === 'Sign in' &&
+          <LogInForm></LogInForm>
+        }
+        {buttonMsg === 'Log in' &&
+          <SignUpForm></SignUpForm>
+        }
+      </div>
+    )}</Spring>
   );
 
 }
