@@ -1,1 +1,0 @@
-export const productNames=['Laptop','Smartphone','Tv'];

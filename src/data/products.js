@@ -21,7 +21,7 @@ const productsRaw={
       price:100
     },
     {
-      id:1,
+      id:3,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
@@ -29,7 +29,7 @@ const productsRaw={
       price:100
     },
     {
-      id:1,
+      id:4,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
@@ -37,7 +37,7 @@ const productsRaw={
       price:100
     },
     {
-      id:1,
+      id:7,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
@@ -45,7 +45,7 @@ const productsRaw={
       price:100
     },
     {
-      id:1,
+      id:100,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
@@ -53,7 +53,7 @@ const productsRaw={
       price:100
     },
     {
-      id:1,
+      id:200,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
@@ -61,14 +61,14 @@ const productsRaw={
       price:100
     },
     {
-      id:1,
+      id:300,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
       brand:"Hamster",
       price:100
     },{
-      id:1,
+      id:400,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
@@ -76,21 +76,21 @@ const productsRaw={
       price:100
     },
     {
-      id:1,
+      id:500,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
       brand:"Hamster",
       price:100
     },{
-      id:1,
+      id:600,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
       brand:"Hamster",
       price:100
     },{
-      id:1,
+      id:700,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
       descr:"2GB RAM, 64 GB Storage",
       name:"Hamster Galaxy S8",
@@ -100,19 +100,45 @@ const productsRaw={
   Tv:
   [
     {
-      id:1,
+      id:12,
       img:"https://lcdn.altex.ro/resize/media/catalog/product/2/e/16fa6a9aef7ffd6209d5fd9338ffa0b1/2e29d0ff1c72a537798ce1cafe6a7579_154230_2.jpg",
       descr:"4k 1920px diagonal",
       name:"Samsung LED Ultra H-5403",
       brand:"Samsung",
       price:500
     }
+  ],
+  Hamster:
+  [
+    {
+      id:12,
+      img:"https://lcdn.altex.ro/resize/media/catalog/product/2/e/16fa6a9aef7ffd6209d5fd9338ffa0b1/2e29d0ff1c72a537798ce1cafe6a7579_154230_2.jpg",
+      descr:"4k 1920px diagonal",
+      name:"Samsung LED Ultra H-5403",
+      brand:"Samsung",
+      price:500
+    }
+  ],
+  Stonk:
+  [
+    {
+      id:12,
+      img:"https://lcdn.altex.ro/resize/media/catalog/product/2/e/16fa6a9aef7ffd6209d5fd9338ffa0b1/2e29d0ff1c72a537798ce1cafe6a7579_154230_2.jpg",
+      descr:"4k 1920px diagonal",
+      name:"Samsung LED Ultra H-5403",
+      brand:"Samsung",
+      price:500
+
+    } 
   ]
 }
 
+export const productNames=[];
+
 export const products=[],size=4;
 for (var key in productsRaw){
-  products[key]=[]
+  products[key]=[];
+  productNames.push(key);
 }
 
 
@@ -121,4 +147,5 @@ for (var key in productsRaw){
     products[key].push(productsRaw[key].splice(0,size));
   }
 }
+
 console.log(products);

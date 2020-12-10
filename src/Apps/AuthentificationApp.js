@@ -12,7 +12,10 @@ function AuthentificationApp(){
     else
       setButtonMsg('Sign in');
   }
-  // NU MERGE SA SE FACA Log in PT CA NU EXISTA SIgn IN FORM , FA L .
+  //Fa ca daca nu esti logat se afiseaza asta cu log in/ sign in 
+  // daca esti logat apare in nav-main  :  Account
+  // unde daca are detalii atunci apar ele si ceva buton de edit 
+  //altfel, inputuri de a completa detaliile
   return  (
     <Spring
     from={{opacity:0}}
