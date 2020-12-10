@@ -19,11 +19,11 @@ const Product = ({id,img,name,brand,descr,price})=>{
         <picture className="container container-img ">
           <img src={img} className="img-fluid img-thumbnail" alt={name}></img>
           </picture>
-          <h2 className='product-descr  text-justify text-center'>
+          <section className='product-descr  text-justify text-center'>
             <h3>{name}</h3>
             <h3>{descr}</h3>
             <h3>{price}$</h3>
-          </h2>
+          </section>
       </div>
       )}
       </Spring>

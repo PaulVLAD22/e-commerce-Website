@@ -29,7 +29,7 @@ function ProductsApp() {
                 {productNames.slice(productNameIndex,Math.min(productNameIndex+3,productNames.length)).map((productName,index)=>{
                     console.log(productNames);
                 return (
-                    <li className="nav-item">
+                    <li key={index} className="nav-item">
                         <a className="nav-link" onClick={displayProduct} id={productName}>{productName}</a>
                     </li>
                   )
