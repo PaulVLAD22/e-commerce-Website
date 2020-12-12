@@ -1,4 +1,4 @@
-import {products} from '../data/products';
+import {products} from '../../data/products';
 import ProductRow from './ProductRow';
 
 function ProductList({productName}){

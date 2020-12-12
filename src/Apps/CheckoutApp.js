@@ -6,6 +6,9 @@ import {Spring} from 'react-spring/renderprops';
 // BUTTON CU POST REQUEST CARE FACE UN ORDER ID SI ORDER ITEMS PT FIECARE ITEM DIN CART
 // Merge doar daca are account details-urile completate
 const CheckoutApp = ()=> {
+  const sendOrder = () =>{
+    // verifica daca avem destule piese si verifica daca in sessions avem valoare pentru first Name
+  }
   return (
     <Spring
     from={{marginTop:400}}
@@ -18,7 +21,7 @@ const CheckoutApp = ()=> {
             );
           }))}
           <div className="row justify-content-center">
-          <button className="btn btn-dark col-4">Confirm order</button>
+          <button className="btn btn-dark col-4" onClick={sendOrder}>Confirm order</button>
           </div>
         </div>
     )}</Spring>

@@ -1,10 +1,11 @@
 import React,{useState,useEffect} from 'react';
 import  '../index.css';
-import ProductList from '../Components/ProductList';
+import ProductList from '../Components/product/ProductList';
 import {productNames} from '../data/products';
 import { Spring } from 'react-spring/renderprops';
 
 function ProductsApp() {
+  // AICI POT FACE INCA O BARA SUB CEA CE ALEGE PRODUSUL PT A ALEGE CUM SORTEZI PRODUSELE SAU SA LE FILTEREZI
   const [productName,setProductName]=useState("Laptop");
   const [productNameIndex,setProductNameIndex] = useState(0);
 
@@ -37,6 +38,7 @@ function ProductsApp() {
             <button className='btn btn-primary' onClick={increaseProductNameIndex}>&#62;</button>
           </ul>
         </nav>
+        
         <ProductList key={productName} productName={productName}></ProductList>
       </>
     );

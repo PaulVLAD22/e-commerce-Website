@@ -53,7 +53,7 @@ const  SignUpApp = () => {
   return (
     <>
     <article>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form d-flex flex-column justify-content-center align-items-center" onSubmit={handleSubmit}>
         <div className='form-control'>
           <label htmlFor="email">Email : </label>
           <input value={email}

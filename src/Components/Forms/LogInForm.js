@@ -13,9 +13,9 @@ const  LogInApp = () => {
 
       const ans = await Promise.resolve($.post('http://localhost:8000/login.php', { email: email, password: password }))
       const postResponse = JSON.parse(ans)
-
+      
       if (postResponse.status){
-
+        // FA SA PRIMESTI SI DETALIILE PRECUM FIRST NAME , altfel pune '' in first_name si in celelalte
         console.log(postResponse)
         sessionStorage.setItem("username",postResponse.username)
         sessionStorage.setItem("user_id",postResponse.user_id)
@@ -26,21 +26,12 @@ const  LogInApp = () => {
       else{
         console.log("Incorrect log in")
       }
-
-      
-      //setPassword('');
-      //setEmail('');
     }
     else{
       console.log('Bad values');
     }
   }
-  // const login = async () => {
-  //   const ans = await Promise.resolve($.post('http://localhost:8080/login.php/',{postemail:$('#email').val()},
-  //   function (data){
-  //     console.log(data);
-  //   }))vrei sa dau npm insta nu cred ca merge asa :)) stai in 5 min se rezolva :XD
-
+  
   const onChangeEmail = (e)=>{
     setEmail(e.target.value)
   }
@@ -65,7 +56,7 @@ const  LogInApp = () => {
   return (
     <>
     <article >
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form d-flex flex-column justify-content-center align-items-center" onSubmit={handleSubmit}>
         <div className='form-control row'>
           <label htmlFor="email">Email : </label>
           <input value={email}

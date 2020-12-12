@@ -1,3 +1,5 @@
+// citesc cart_items care user_id = SEssionstorage['user_id'];
+
 export const cartItems=[
   {
     id:1,
