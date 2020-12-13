@@ -1,11 +1,11 @@
 import React,{useState} from 'react';
-import {cartItems} from '../data/cartItems';
+
 import CartItem from '../Components/cart/CartItem';
 import {Spring} from 'react-spring/renderprops';
 
 // BUTTON CU POST REQUEST CARE FACE UN ORDER ID SI ORDER ITEMS PT FIECARE ITEM DIN CART
 // Merge doar daca are account details-urile completate
-const CheckoutApp = ()=> {
+const CheckoutApp = ({cartItems})=> {
   const sendOrder = () =>{
     // verifica daca avem destule piese si verifica daca in sessions avem valoare pentru first Name
   }

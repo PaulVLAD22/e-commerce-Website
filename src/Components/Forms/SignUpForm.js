@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
-
+import $ from 'jquery'
 const  SignUpApp = () => {
   const [password,setPassword] = useState('');
   const [email,setEmail] = useState('');
   const [confirmPassword,setConfirmPassword]= useState('');
 
-  const handleSubmit= (e) =>{
+  const handleSubmit= async e =>{
     e.preventDefault();
     if (validInput()){
-      
-      setConfirmPassword('');
-      setPassword('');
-      setEmail('');
+      // fa post ca la login si insereaza in baza de date, cu tot cu un email de verifare in care ii trimiti
+      const ans = await Promise.resolve($.post('http://localhost:8000/signup.php', { email: email, password: password }))
+      const postResponse = JSON.parse(ans)
+      if (postResponse.status){
+        // FA SA PRIMESTI SI DETALIILE PRECUM FIRST NAME , altfel pune '' in first_name si in celelalte
+        console.log(postResponse)
+        setConfirmPassword('');
+        setPassword('');
+        setEmail('');
+      }
     }
     else{
-      console.log('empty values');
+      console.log('bad values');
     }
   };
   const onChangeEmail = (e) =>{
@@ -36,10 +42,6 @@ const  SignUpApp = () => {
     }
     if (password.length<7){
       document.getElementById('password').style.color="red";
-      return false;
-    }
-    if (confirmPassword.length<7){
-      document.getElementById('confirmPassword').style.color="red";
       return false;
     }
 

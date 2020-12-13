@@ -5,11 +5,16 @@ import AccountDetails from '../Forms/AccountDetails'
 import CheckoutApp from '../../Apps/CheckoutApp'
 import ProductsApp from '../../Apps/ProductsApp'
 import $ from 'jquery';
+import {getProducts} from '../../data/products'
+import {getCartItems} from '../../data/cartItems'
 
 const MainNavBar = () =>{
   const displayProductsApp = () =>{
+    // POST CATRE PRODUCTS 
+    const productsArray=getProducts();
+    console.log(productsArray)
     ReactDOM.render(
-      <ProductsApp/>,
+      <ProductsApp products={productsArray[0]} productNames={productsArray[1]}/>,
     document.getElementById('main'));
   }
   const displayAuthentification = () =>{
@@ -18,13 +23,16 @@ const MainNavBar = () =>{
     document.getElementById('main'));
   }
   const displayAccountDetails = () =>{
+    // POST CA SA VEZI DACA SUNT COMPLETATE
     ReactDOM.render(
       <AccountDetails/>,
     document.getElementById('main'));
   }
   const displayCheckoutApp = () =>{
+    //POST CATRE CART ITEMS care au user_id sessionStorage(user_id)
+    const cartItemsArray = getCartItems();
     ReactDOM.render(
-      <CheckoutApp/>,
+      <CheckoutApp cartItems={cartItemsArray}/>,
     document.getElementById('main'));
   }
   const logout = () =>{
@@ -67,4 +75,5 @@ const MainNavBar = () =>{
     </ul>
   )
 }
+
 export default MainNavBar;

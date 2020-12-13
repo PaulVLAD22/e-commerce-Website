@@ -18,7 +18,7 @@ const  LogInApp = () => {
         // FA SA PRIMESTI SI DETALIILE PRECUM FIRST NAME , altfel pune '' in first_name si in celelalte
         console.log(postResponse)
         sessionStorage.setItem("username",postResponse.username)
-        sessionStorage.setItem("user_id",postResponse.user_id)
+        sessionStorage.setItem("isAdmin",postResponse.isAdmin)
         window.location.reload()
         setPassword('')
         setEmail('')

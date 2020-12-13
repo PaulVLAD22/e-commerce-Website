@@ -21,25 +21,19 @@ function returnStatus($status, ...$args) {
 //   x.message0, x.message1, tu ce ai facut, nu mai e generica acum :)) automat iti retunreaza si info alea, si nu e ok. sa stii doar. stai sa-ti arat cealalta chestie
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $loginSucces=1;//hardcodat
+    $loginSucces=0;//hardcodat
     $user_id = 1;//hardcodat
+    
 
 
     $email=$_POST['email'];
 
-    if ($loginSucces){
-      $_SESSION['user_id']=1;
+    if ($loginSucces!=0){
       $_SESSION['email']=$email;
-      returnStatus(true,$user_id,$email);
+      $_SESSION['isAdmin']=false;
+      returnStatus(true,$email,$_SESSION['isAdmin']);
     }
   }
 
-  // $logareSucces = 1;
 
-  // if ($logareSucces)
-  //   returnStatus(true, "1",'paulvlad34@gmail.com');
-    
-  
-  // else
-  //   returnStatus(false, "Nu e ok");
 ?>

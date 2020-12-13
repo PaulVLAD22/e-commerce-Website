@@ -1,9 +1,7 @@
-import {products} from '../../data/products';
 import ProductRow from './ProductRow';
 
-function ProductList({productName}){
+function ProductList({products,productName}){
     console.log(productName);
-    console.log(products[productName]);
     return (
       <div className="container-fluid">
         {products[productName].map((productsRow,index)=>{

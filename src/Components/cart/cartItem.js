@@ -12,7 +12,6 @@ const CartItem = ({id,productType,img,name,price,quantity}) =>{
   const increaseQuantity = () =>{
     setProductQuantity(productQuantity+1);
   }
-  console.log(id);
   return (
     <Spring
     from ={{opacity:0}}
