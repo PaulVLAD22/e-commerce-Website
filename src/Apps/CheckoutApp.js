@@ -2,11 +2,21 @@ import React,{useState} from 'react';
 
 import CartItem from '../Components/cart/CartItem';
 import {Spring} from 'react-spring/renderprops';
-
+import {usernameLocal} from '../Components/Forms/LogInForm'
+import {getUserDetails} from '../data/user'
 // BUTTON CU POST REQUEST CARE FACE UN ORDER ID SI ORDER ITEMS PT FIECARE ITEM DIN CART
 // Merge doar daca are account details-urile completate
 const CheckoutApp = ({cartItems})=> {
-  const sendOrder = () =>{
+  console.log(usernameLocal)
+  const sendOrder = async () =>{
+    const userDetails = await getUserDetails();
+    if (userDetails.status===1){
+      alert("ok");
+      // cod pt a insera order-ul si stergem cartul
+    }
+    else{
+      alert("NU E OK");
+    }
     // verifica daca avem destule piese si verifica daca in sessions avem valoare pentru first Name
   }
   return (

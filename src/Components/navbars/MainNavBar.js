@@ -7,7 +7,7 @@ import ProductsApp from '../../Apps/ProductsApp'
 import $ from 'jquery';
 import {getProducts} from '../../data/products'
 import {getCartItems} from '../../data/cartItems'
-
+import {getUserDetails} from '../../data/user'
 const MainNavBar = () =>{
   const displayProductsApp = () =>{
     // POST CATRE PRODUCTS 
@@ -18,22 +18,44 @@ const MainNavBar = () =>{
     document.getElementById('main'));
   }
   const displayAuthentification = () =>{
+    //
     ReactDOM.render(
       <AuthentificationApp/>,
     document.getElementById('main'));
   }
-  const displayAccountDetails = () =>{
+  const displayAccountDetails = async () =>{
+    const userDetails = await getUserDetails();
     // POST CA SA VEZI DACA SUNT COMPLETATE
-    ReactDOM.render(
-      <AccountDetails/>,
-    document.getElementById('main'));
+    if (userDetails.status===0){
+      ReactDOM.render(
+        <AccountDetails data={[]}/>,
+      document.getElementById('main'));
+    }
+    else{
+      ReactDOM.render(
+        <div className="container-fluid">
+        <h2>DOINK</h2>
+        <h2>First Name:{userDetails.first_name}</h2>
+        <h2>Last Name:{userDetails.last_name}</h2>
+        <h2>Phone Number:{userDetails.phone_number}</h2>
+        <h2>Country:{userDetails.address_country}</h2>
+        <h2>City:{userDetails.address_city}</h2>
+        <h2>Street:{userDetails.address_street}</h2>
+        <h2>Postal Code:{userDetails.address_postal_code}</h2>
+        <button onClick={ReactDOM.render(
+        <AccountDetails data={userDetails}/>,
+      document.getElementById('main'))}>Change Data</button>
+        </div>,
+      document.getElementById('main'));
+    }
   }
-  const displayCheckoutApp = () =>{
+  const displayCheckoutApp = async () =>{
     //POST CATRE CART ITEMS care au user_id sessionStorage(user_id)
-    const cartItemsArray = getCartItems();
-    ReactDOM.render(
-      <CheckoutApp cartItems={cartItemsArray}/>,
-    document.getElementById('main'));
+      const cartItemsArray =await getCartItems();
+      ReactDOM.render(
+        <CheckoutApp cartItems={cartItemsArray}/>,
+      document.getElementById('main'));
+      
   }
   const logout = () =>{
     sessionStorage.clear();

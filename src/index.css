@@ -203,6 +203,9 @@ footer {
   background-color: white;
   border-width: 0px;
 }
+.btn-disabled:hover{
+  cursor:default;
+}
 
 
 .container-comments{

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import {Spring} from 'react-spring/renderprops';
-// verifici daca sunt deja completate atunci le afisezi cu un buton de a le modifica 
-// daca nu form cu inputurile necesare din baza de date
-const AccountDetails= () =>{
+import $ from 'jquery'
+
+const AccountDetails= (data) =>{
+  // DACA data=[] e ok , DACA NU ATUNCI PUNEM IN VALUE VALORILE primite in data si facem un POST cu UPDATE
+  console.log(sessionStorage.getItem('session_id'));
   const [firstName,setFirstName] = useState('');
   const [lastName,setLastName] = useState('');
   const [phoneNumber,setPhoneNumber] = useState('');
@@ -33,15 +35,23 @@ const AccountDetails= () =>{
     setPostalCode(e.target.value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (validInput()){
       console.log("Form submitted");
       //post catre php si se face in account details linie
+      const ans = await Promise.resolve($.post('http://localhost:80/ReactApi/fillUserDetails.php?', { session_id:sessionStorage.getItem("session_id"),
+                                                                                   username:sessionStorage.getItem("username"),firstName:firstName,lastName:lastName,
+                                                                                   country:country,phoneNumber:phoneNumber,
+                                                                                   city:city, street:street,postalCode:postalCode }))
+      console.log(ans)
+
     }
   }
 
   const validInput= () => {
+    if (!firstName || !lastName || !phoneNumber || !country || !city || !street || !postalCode)
+      return false;
     return true;
   }
 

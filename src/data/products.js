@@ -1,4 +1,5 @@
 function getProducts(){
+  
   //aici
   const productsRaw={
     Laptop:

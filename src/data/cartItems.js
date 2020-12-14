@@ -1,5 +1,6 @@
 // citesc cart_items care user_id = SEssionstorage['user_id'];
 function getCartItems(){
+  //aici faci post
   const cartItems=[
     {
       id:1,

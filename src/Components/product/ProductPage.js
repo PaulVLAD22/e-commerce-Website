@@ -57,16 +57,13 @@ const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,review,comme
               {Object.keys(comments).map((key,index)=>{
                 return (
                   <span key={index} className="comment bg-light">
-                    <h3>{comments[key].user}</h3><button className="btn-dark">Like</button><h3>({comments[key].likesNr})</h3>
+                    <h3>{comments[key].user}</h3><button className="btn-dark">Like</button><h3>({comments[key].likesNr} likes)</h3>
                     <p>{comments[key].comment}</p>
                   </span>
                 )
               })}
               {sessionStorage.getItem("username")!==null &&
               <form className='comment-form d-flex flex-column justify-content-center' onSubmit={addComment}>
-                <label>Review: (x/5)</label>
-                <input className="text-center" type='number' step='0.5'></input>
-                <br></br>
                 <label>Comment:</label>
                 <input type='text' className='w-100' name='commentText'></input>
                 <button type='submit' className='btn-dark'>Post</button>

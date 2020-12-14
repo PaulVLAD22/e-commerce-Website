@@ -7,11 +7,4 @@ return array(
   'dbname' => "heroku_b61a86e89e19dca"
 );
 
-
-function dbConnection($configs){
-  $dbservername = $configs['host'];
-  $dbusername = $configs['username'];
-  $dbpassword = $configs['password'];
-  $dbName = $configs['dbname'];
-}
 ?>

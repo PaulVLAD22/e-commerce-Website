@@ -4,7 +4,9 @@ import LogInForm from '../Components/Forms/LogInForm';
 import SignUpForm from '../Components/Forms/SignUpForm';
 import {Spring} from 'react-spring/renderprops';
 
-function AuthentificationApp(){
+function AuthentificationApp(data){
+  // DACA data=[] totul e ok / ALTFEL PUNE LA VALUE VALORILE PE CARE LE AVEM DEJA SI FA POST DE UPDATE
+  
   const [buttonMsg,setButtonMsg]=useState('Sign in');
   const changeAuthentification = ()=>{
     if (buttonMsg==="Sign in")
