@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import ReactDOM from 'react-dom'
 import AuthentificationApp from '../../Apps/AuthentificationApp'
 import AccountDetails from '../Forms/AccountDetails'
@@ -10,11 +10,17 @@ import {getCartItems} from '../../data/cartItems'
 import {getUserDetails} from '../../data/user'
 import AccountInfo from '../AccountInfo';
 const MainNavBar = ({data}) =>{
+  useEffect(async() => {
+    const productsArray=await getProducts();
+    console.log(productsArray[0])
+    ReactDOM.render(
+      <ProductsApp key={0} products={productsArray[0]} productNames={productsArray[1]} />,
+    document.getElementById('main'));
+    }, [])
   
-  const displayProductsApp = () =>{
-    console.log(data)
+  const displayProductsApp = async () =>{
     // POST CATRE PRODUCTS 
-    const productsArray=getProducts();
+    const productsArray=await Promise.resolve(getProducts());
     console.log(productsArray)
     ReactDOM.render(
       <ProductsApp products={productsArray[0]} productNames={productsArray[1]}/>,

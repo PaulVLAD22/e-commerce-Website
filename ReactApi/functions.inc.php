@@ -275,6 +275,37 @@ function updUserDetails($conn,$firstName,$lastName,$phoneNumber,$address_country
   else 
     return false;
 }
+function getProducts($conn){
+  $productNames=array();
+  $products = array();
+  $sql = "SELECT * FROM product_type ;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt,$sql)){
+    //error
+  }
+  mysqli_stmt_execute($stmt);
+  
+  $resultData = mysqli_stmt_get_result($stmt);
+  
+  while ($row = $resultData->fetch_array()){
+    array_push($productNames,$row['product_type_name']);
+    $products_temp=array();
+    $sql2 = "SELECT * FROM products where product_type_name=? ;";
+    $stmt2= mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt2,$sql2)){
+      //
+    }
+    mysqli_stmt_bind_param($stmt2,"s",$row['product_type_name']);
+    mysqli_stmt_execute($stmt2);
+    $productsResult=mysqli_stmt_get_result($stmt2);
+    while ($productsRow = $productsResult->fetch_array()){
+      // PUNE IN PRODUCT TEMP APOI IN products[$row[product_type_name]=products_temp]
+    }
+
+
+  }
+  return [json_encode($productNames),json_encode($products)];
+}
 
 function returnSignupStatus($status, ...$args) {
   $arr = array();

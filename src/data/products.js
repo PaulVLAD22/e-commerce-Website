@@ -1,7 +1,11 @@
-function getProducts(){
-  
+import $ from 'jquery'
+async function getProducts(){
+  const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/getProducts.php',{}))
+  console.log(ans)
+  console.log("MAI SUS")
   //aici
   const productsRaw={
+    
     Laptop:
     [
       {
@@ -149,7 +153,6 @@ function getProducts(){
       products[key].push(productsRaw[key].splice(0,size));
     }
   }
-  console.log("EXECUTATA")
   return [products,productNames]
 }
 export {getProducts};

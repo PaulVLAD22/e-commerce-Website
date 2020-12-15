@@ -11,11 +11,7 @@ ReactDOM.render(
   <MainNavBar></MainNavBar>,
 document.getElementById('main-navbar'));
 //When opening page displaying Products
-const productsArray=getProducts();
-console.log(productsArray[0])
-ReactDOM.render(
-  <ProductsApp key={0} products={productsArray[0]} productNames={productsArray[1]} />,
-document.getElementById('main'));
+
 
 
 
