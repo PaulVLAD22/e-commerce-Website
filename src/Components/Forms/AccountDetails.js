@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import {Spring} from 'react-spring/renderprops';
-import $ from 'jquery'
+import $, { post } from 'jquery'
 
-const AccountDetails= (data) =>{
+const AccountDetails= ({data}) =>{
   // DACA data=[] e ok , DACA NU ATUNCI PUNEM IN VALUE VALORILE primite in data si facem un POST cu UPDATE
+  
   console.log(sessionStorage.getItem('session_id'));
-  const [firstName,setFirstName] = useState('');
-  const [lastName,setLastName] = useState('');
-  const [phoneNumber,setPhoneNumber] = useState('');
-  const [country,setCountry] = useState('');
-  const [city,setCity] = useState('');
-  const [street,setStreet] = useState('');
-  const [postalCode,setPostalCode]= useState('');
+  const [firstName,setFirstName] = useState(data[0]);
+  const [lastName,setLastName] = useState(data[1]);
+  const [phoneNumber,setPhoneNumber] = useState(data[2]);
+  const [country,setCountry] = useState(data[3]);
+  const [city,setCity] = useState(data[4]);
+  const [street,setStreet] = useState(data[5]);
+  const [postalCode,setPostalCode]= useState(data[6]);
 
   const onChangeFirstName = (e) =>{
     setFirstName(e.target.value)
@@ -38,13 +39,26 @@ const AccountDetails= (data) =>{
   const handleSubmit = async e => {
     e.preventDefault();
     if (validInput()){
-      console.log("Form submitted");
-      //post catre php si se face in account details linie
-      const ans = await Promise.resolve($.post('http://localhost:80/ReactApi/fillUserDetails.php?', { session_id:sessionStorage.getItem("session_id"),
-                                                                                   username:sessionStorage.getItem("username"),firstName:firstName,lastName:lastName,
-                                                                                   country:country,phoneNumber:phoneNumber,
-                                                                                   city:city, street:street,postalCode:postalCode }))
-      console.log(ans)
+      if (data[0]!=' '){//need to insert values
+        console.log("Form submitted");
+        //post catre php si se face in account details linie
+        const ans = await Promise.resolve($.post('http://localhost:80/ReactApi/fillUserDetails.php?', { session_id:sessionStorage.getItem("session_id"),
+                                                                                    username:sessionStorage.getItem("username"),firstName:firstName,lastName:lastName,
+                                                                                    country:country,phoneNumber:phoneNumber,
+                                                                                    city:city, street:street,postalCode:postalCode }))
+        console.log(ans)
+        // fa un mesaj deconfirmare
+      }
+      else{
+        if (!sameValues(data)){
+          // FA AICI SA FIE UPDATE NU INSERT, FA MESAJ LA LOGIN/SIGN IN PROBLEM. SI APOI BD CU PRODUSE.
+          const ans = await Promise.resolve($.post('http://localhost:80/ReactApi/fillUserDetails.php?', { session_id:sessionStorage.getItem("session_id"),
+                                                                                    username:sessionStorage.getItem("username"),firstName:firstName,lastName:lastName,
+                                                                                    country:country,phoneNumber:phoneNumber,
+                                                                                    city:city, street:street,postalCode:postalCode }))
+          console.log(ans)
+        }
+      }
 
     }
   }
@@ -53,6 +67,10 @@ const AccountDetails= (data) =>{
     if (!firstName || !lastName || !phoneNumber || !country || !city || !street || !postalCode)
       return false;
     return true;
+  }
+  const sameValues= (data)=>{
+    return (data[0]==firstName && data[1]==lastName && data[2]==phoneNumber
+      && data[3]==country && data[4]==city && data[5]==street && data[6]==postalCode)
   }
 
   return (

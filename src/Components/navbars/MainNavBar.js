@@ -8,6 +8,7 @@ import $ from 'jquery';
 import {getProducts} from '../../data/products'
 import {getCartItems} from '../../data/cartItems'
 import {getUserDetails} from '../../data/user'
+import Account from '../Account';
 const MainNavBar = () =>{
   const displayProductsApp = () =>{
     // POST CATRE PRODUCTS 
@@ -28,24 +29,12 @@ const MainNavBar = () =>{
     // POST CA SA VEZI DACA SUNT COMPLETATE
     if (userDetails.status===0){
       ReactDOM.render(
-        <AccountDetails data={[]}/>,
+        <AccountDetails data={['','','','','','','']}/>,
       document.getElementById('main'));
     }
     else{
       ReactDOM.render(
-        <div className="container-fluid">
-        <h2>DOINK</h2>
-        <h2>First Name:{userDetails.first_name}</h2>
-        <h2>Last Name:{userDetails.last_name}</h2>
-        <h2>Phone Number:{userDetails.phone_number}</h2>
-        <h2>Country:{userDetails.address_country}</h2>
-        <h2>City:{userDetails.address_city}</h2>
-        <h2>Street:{userDetails.address_street}</h2>
-        <h2>Postal Code:{userDetails.address_postal_code}</h2>
-        <button onClick={ReactDOM.render(
-        <AccountDetails data={userDetails}/>,
-      document.getElementById('main'))}>Change Data</button>
-        </div>,
+        <Account userDetails={userDetails}></Account>,
       document.getElementById('main'));
     }
   }
