@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom'
 import $, { post } from 'jquery';
-let usernameLocal='';
 const  LogInApp = () => {
+  const [loginResponse,setLoginResponse]= useState('');
   const [password,setPassword] = useState('')
   const [username,setUsername] = useState('')
   const handleSubmit= async e =>{
@@ -11,29 +12,37 @@ const  LogInApp = () => {
 
     if (validInput()) {
 
-      const ans = await Promise.resolve($.post('http://localhost:80/ReactApi/login.php', { username: username, password: password }))
+      const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/login.php', { username: username, password: password }))
       const postResponse = JSON.parse(ans)
       console.log(ans)
       if (postResponse.status){
         // FA SA PRIMESTI SI DETALIILE PRECUM FIRST NAME , altfel pune '' in first_name si in celelalte
         console.log(postResponse)
         if (postResponse.isAdmin==0){
-          sessionStorage.setItem("username",postResponse.username)
-          sessionStorage.setItem('session_id',postResponse.session_id);
-          window.location.href = 'index.html';
-          setPassword('')
-          setUsername('')
+          if (postResponse.isActive){
+            sessionStorage.setItem("username",postResponse.username)
+            sessionStorage.setItem('session_id',postResponse.session_id);     
+            window.location.href="index.html"       
+            setPassword('')
+            setUsername('')
+          }
+          else{
+            setLoginResponse("Active Your Account First!")
+          }
         }
         else{
-          window.location.href="admin.html";
+          if (postResponse.isAdmin==1)
+            window.location.href="admin.html";
+          else if (postResponse.isAdmin==2)
+            window.location.href="owner.html";
         }
       }
       else{
-        console.log("Incorrect log in")
+        setLoginResponse("Incorrect credentials")
       }
     }
     else{
-      console.log('Bad values');
+      setLoginResponse("Bad values")
     }
   }
   
@@ -51,13 +60,28 @@ const  LogInApp = () => {
       document.getElementById('password').style.color="red"
       return false
     }
-
     return true
+  }
+  const resetPassword = async () =>{
+    if (username){
+      const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/resetPass.php', { username: username }))
+      console.log(ans)
+      const postResponse = JSON.parse(ans)
+      if(postResponse.status){
+        setLoginResponse("Email sent")
+      }
+      else{
+        setLoginResponse("Incorrect username/email")
+      }
+    }
+    else{
+      setLoginResponse("Incorrect username/email")
+    }
   }
   
   return (
     <>
-    <article >
+    <article>
       <form  className="form d-flex flex-column justify-content-center align-items-center" onSubmit={handleSubmit}>
         <div className='form-control row'>
           <label htmlFor="username">Username : </label>
@@ -72,11 +96,13 @@ const  LogInApp = () => {
            type="password" id="password" name="password"/>
         </div>
         <button className="btn-dark" type="submit">Log in</button>
+        <button className="btn-dark" onClick={resetPassword} type='button'>Reset Password(complete Username)</button>
+        <h2 className="responseMessage ">{loginResponse}</h2>
       </form>
     </article>
     </>
   )
 };
+export default LogInApp
 
-export default LogInApp;
-export {usernameLocal}
+

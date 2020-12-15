@@ -39,24 +39,32 @@ const AccountDetails= ({data}) =>{
   const handleSubmit = async e => {
     e.preventDefault();
     if (validInput()){
-      if (data[0]!=' '){//need to insert values
+      if (data[0]==''){//need to insert values
         console.log("Form submitted");
         //post catre php si se face in account details linie
-        const ans = await Promise.resolve($.post('http://localhost:80/ReactApi/fillUserDetails.php?', { session_id:sessionStorage.getItem("session_id"),
+        const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/fillUserDetails.php?', { session_id:sessionStorage.getItem("session_id"),
                                                                                     username:sessionStorage.getItem("username"),firstName:firstName,lastName:lastName,
                                                                                     country:country,phoneNumber:phoneNumber,
                                                                                     city:city, street:street,postalCode:postalCode }))
         console.log(ans)
+        const postResponse = JSON.parse(ans)
+        if(postResponse.status){
+          window.location.reload();
+        }
         // fa un mesaj deconfirmare
       }
       else{
         if (!sameValues(data)){
           // FA AICI SA FIE UPDATE NU INSERT, FA MESAJ LA LOGIN/SIGN IN PROBLEM. SI APOI BD CU PRODUSE.
-          const ans = await Promise.resolve($.post('http://localhost:80/ReactApi/fillUserDetails.php?', { session_id:sessionStorage.getItem("session_id"),
+          const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/updUserDetails.php?', { session_id:sessionStorage.getItem("session_id"),
                                                                                     username:sessionStorage.getItem("username"),firstName:firstName,lastName:lastName,
                                                                                     country:country,phoneNumber:phoneNumber,
                                                                                     city:city, street:street,postalCode:postalCode }))
           console.log(ans)
+          const postResponse = JSON.parse(ans)
+          if (postResponse.status){
+            window.location.reload()
+          }
         }
       }
 

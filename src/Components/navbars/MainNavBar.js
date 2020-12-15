@@ -8,9 +8,11 @@ import $ from 'jquery';
 import {getProducts} from '../../data/products'
 import {getCartItems} from '../../data/cartItems'
 import {getUserDetails} from '../../data/user'
-import Account from '../Account';
-const MainNavBar = () =>{
+import AccountInfo from '../AccountInfo';
+const MainNavBar = ({data}) =>{
+  
   const displayProductsApp = () =>{
+    console.log(data)
     // POST CATRE PRODUCTS 
     const productsArray=getProducts();
     console.log(productsArray)
@@ -34,7 +36,7 @@ const MainNavBar = () =>{
     }
     else{
       ReactDOM.render(
-        <Account userDetails={userDetails}></Account>,
+        <AccountInfo userDetails={userDetails}></AccountInfo>,
       document.getElementById('main'));
     }
   }
@@ -47,12 +49,14 @@ const MainNavBar = () =>{
       
   }
   const logout = () =>{
+    const ans = ($.post('http://localhost:8000/ReactApi/logout.php', {session_id:sessionStorage.getItem("session_id")}))
     sessionStorage.clear();
-    const ans = ($.post('http://localhost:8000/logout.php', {}))
     window.location.reload();
   }
   return (
+    
     <ul className="navbar-nav align-items-center justify-content-between">
+      {console.log(data)}
       <li className="nav-item active">
         <h1>Vlad-Shop.com</h1>
       </li>

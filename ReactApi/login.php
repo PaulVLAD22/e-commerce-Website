@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   require_once 'dbh.inc.php';
   require_once 'functions.inc.php';
   if (loginUser($conn,$username,$password)===true){
-    returnLoginStatus(1,$_SESSION['username'],session_id(),userisAdmin($conn,$username));
+    returnLoginStatus(1,$_SESSION['username'],session_id(),userisAdmin($conn,$username),userIsActive($conn,$username));
     
   }
   else{

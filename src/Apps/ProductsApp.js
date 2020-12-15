@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react';
 import  '../index.css';
 import ProductList from '../Components/product/ProductList';
 
-
 const  ProductsApp = ({products,productNames})=> {
   console.log(products)
   console.log(productNames)

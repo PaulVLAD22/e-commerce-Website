@@ -237,6 +237,24 @@ footer {
 .comment-form{
   font-weight: bold;
 }
+.responseMessage{
+  margin-top:2rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color:red;
+}
+.account-info{
+  position: absolute;
+  top:50%;
+  transform:translate(0,-50%)
+}
+.account-info h3{
+  background-color: var(--clr-grey-10);
+  font-size:1.2rem;
+  font-weight:500;
+  color:var(--clr-primary-2);
+  letter-spacing: 0.2rem;
+}
 
 
 

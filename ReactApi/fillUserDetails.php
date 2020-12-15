@@ -8,6 +8,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   session_id($_POST['session_id']);
   session_start();
+  
   if ($_POST['username']!=$_SESSION['username']){
     die("Error");
   }
@@ -29,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     returnUserDetails(1);
   }
   else{
-    returnUserDetails(0,'Details not updated');
+    returnUserDetails(0,'Details not inserted');
   }
 
   

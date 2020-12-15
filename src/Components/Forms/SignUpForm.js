@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import $ from 'jquery'
+import $, { post } from 'jquery'
 const  SignUpApp = () => {
+  const [signupRespose,setSignupResponse]=useState('')
   const [password,setPassword] = useState('');
   const [email,setEmail] = useState('');
   const [username,setUsername]=useState('')
@@ -10,21 +11,25 @@ const  SignUpApp = () => {
     e.preventDefault();
     if (validInput()){
       // fa post ca la login si insereaza in baza de date, cu tot cu un email de verifare in care ii trimiti
-      const ans = await Promise.resolve($.post('http://localhost:80/ReactApi/signup.php', { username:username,email: email, password: password,passwordRepeat:confirmPassword }))
+      const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/signup.php', { username:username,email: email, password: password,passwordRepeat:confirmPassword }))
       const postResponse = JSON.parse(ans)
       console.log(ans)
       if (postResponse.status){
         //fa sa afisezi erorile la un moment dat (user already exists)
         console.log(postResponse)
-        // if (postResponse)
-        // setConfirmPassword('');
-        // setPassword('');
-        // setEmail('');
-        // setUsername('')
+        if (postResponse)
+        setSignupResponse("Account Created Successfully, check your email")        
+        setConfirmPassword('');
+        setPassword('')
+        setEmail('')
+        setUsername('')
+      }
+      else{
+        setSignupResponse(postResponse.signupProblem)
       }
     }
     else{
-      console.log('bad values');
+      setSignupResponse("Bad values")
     }
   };
   const onChangeEmail = (e) =>{
@@ -87,6 +92,7 @@ const  SignUpApp = () => {
            type="password" id="confirmPassword" name="confirmPassword"/>
         </div>
         <button className="btn-dark" type="submit" name="submit">Register</button>
+        <h2 className="responseMessage">{signupRespose}</h2>
       </form>
     </article>
     </>
