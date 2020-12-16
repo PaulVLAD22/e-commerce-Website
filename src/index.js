@@ -12,8 +12,3 @@ ReactDOM.render(
 document.getElementById('main-navbar'));
 //When opening page displaying Products
 
-
-
-
-
-

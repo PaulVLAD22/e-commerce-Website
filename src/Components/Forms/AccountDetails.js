@@ -6,13 +6,14 @@ const AccountDetails= ({data}) =>{
   // DACA data=[] e ok , DACA NU ATUNCI PUNEM IN VALUE VALORILE primite in data si facem un POST cu UPDATE
   
   console.log(sessionStorage.getItem('session_id'));
-  const [firstName,setFirstName] = useState(data[0]);
-  const [lastName,setLastName] = useState(data[1]);
-  const [phoneNumber,setPhoneNumber] = useState(data[2]);
-  const [country,setCountry] = useState(data[3]);
-  const [city,setCity] = useState(data[4]);
-  const [street,setStreet] = useState(data[5]);
-  const [postalCode,setPostalCode]= useState(data[6]);
+  const [detailsResponse,setDetailsResponse]=useState('');
+  const [firstName,setFirstName] = useState(data[1]);
+  const [lastName,setLastName] = useState(data[2]);
+  const [phoneNumber,setPhoneNumber] = useState(data[3]);
+  const [country,setCountry] = useState(data[4]);
+  const [city,setCity] = useState(data[5]);
+  const [street,setStreet] = useState(data[6]);
+  const [postalCode,setPostalCode]= useState(data[7]);
 
   const onChangeFirstName = (e) =>{
     setFirstName(e.target.value)
@@ -40,17 +41,20 @@ const AccountDetails= ({data}) =>{
     e.preventDefault();
     if (validInput()){
       if (data[0]==''){//need to insert values
-        console.log("Form submitted");
         //post catre php si se face in account details linie
         const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/fillUserDetails.php?', { session_id:sessionStorage.getItem("session_id"),
                                                                                     username:sessionStorage.getItem("username"),firstName:firstName,lastName:lastName,
                                                                                     country:country,phoneNumber:phoneNumber,
                                                                                     city:city, street:street,postalCode:postalCode }))
         console.log(ans)
-        const postResponse = JSON.parse(ans)
-        if(postResponse.status){
-          window.location.reload();
-        }
+          const postResponse = JSON.parse(ans)
+          if (postResponse.status!==0){
+            window.location.reload()
+          }
+          else{
+            console.log("AA")
+            setDetailsResponse(postResponse.userDetailsProblem)
+          }
         // fa un mesaj deconfirmare
       }
       else{
@@ -62,12 +66,18 @@ const AccountDetails= ({data}) =>{
                                                                                     city:city, street:street,postalCode:postalCode }))
           console.log(ans)
           const postResponse = JSON.parse(ans)
-          if (postResponse.status){
+          if (postResponse.status!==0){
             window.location.reload()
+          }
+          else{
+            console.log("AA")
+            setDetailsResponse(postResponse.userDetailsProblem)
           }
         }
       }
-
+    }
+    else{
+      setDetailsResponse("Invalid input");
     }
   }
 
@@ -136,6 +146,7 @@ const AccountDetails= ({data}) =>{
           </div>
 
           <button className="btn-dark" type="submit">Save</button>
+          <h2 className="responseMessage ">{detailsResponse}</h2>
         </form>
       </article>
       </div>

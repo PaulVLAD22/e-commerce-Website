@@ -12,19 +12,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($_POST['username']!=$_SESSION['username']){
     die("Error");
   }
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $phoneNumber = $_POST['phoneNumber'];
-  $addressCountry = $_POST['country'];
-  $addressCity = $_POST['city'];
-  $addressStreet = $_POST['street'];
-  $postalCode = $_POST['postalCode'];
+  $firstName = ucfirst($_POST['firstName']);
+  $lastName = ucfirst($_POST['lastName']);
+  $phoneNumber = ucfirst($_POST['phoneNumber']);
+  $addressCountry = ucfirst($_POST['country']);
+  $addressCity = ucfirst($_POST['city']);
+  $addressStreet = ucfirst($_POST['street']);
+  $postalCode = ucfirst($_POST['postalCode']);
 
   //verificari legate de tari,orase,postal code
 
   require_once 'dbh.inc.php';
   require_once 'functions.inc.php';
   // fa trimming
+  if (!validate_name($firstName) || !validate_name($lastName)){
+    returnUserDetails(0,'Invalid first name / last name');
+  }
+  if (!validate_phone_number($phoneNumber)){
+    returnUserDetails(0,'Invalid phone number');
+  }
   if (userDetails($conn,$firstName,$lastName,$phoneNumber,$addressCountry,
   $addressCity,$addressStreet,$postalCode)===true){
     returnUserDetails(1);

@@ -170,14 +170,12 @@ footer {
 }
 .product-page-descr {
   overflow-y:auto;
-  max-height: 500px;
+  max-height: 300px;
 }
 .product-page-descr h3{
   font-size:1rem;
-  letter-spacing: 0.2rem;
   font-weight: bold;
   border-radius: 0.1rem;
-  padding: 0.5rem;
 }
 .product-descr{
   max-height:200px;
@@ -255,7 +253,16 @@ footer {
   color:var(--clr-primary-2);
   letter-spacing: 0.2rem;
 }
-
+.checked {
+  color: orange;
+}
+.fa{
+  width:20px;
+  margin:10px;
+}
+.fa:hover{
+  color:orange;
+}
 
 
 @media (max-width: 576px) {

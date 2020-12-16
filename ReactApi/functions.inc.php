@@ -7,6 +7,28 @@ require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
 
+function validate_name($name){
+  if(preg_match("/^([a-zA-Z' ]+)$/",$name))
+    return true;
+  else
+    return false;
+}
+function validate_phone_number($phone)
+{
+     // Allow +, - and . in phone number
+     $filtered_phone_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
+     // Remove "-" from number
+     $phone_to_check = str_replace("-", "", $filtered_phone_number);
+     // Check the lenght of number
+     // This can be customized if you want phone number from a specific country
+     if (strlen($phone_to_check) < 10 || strlen($phone_to_check) > 14) {
+        return false;
+     } else {
+       return true;
+     }
+}
+
+
 function invalidUsername($username){
   $result=true;
   if(!preg_match("/^[a-zA-Z0-9]*$/",$username)){
@@ -317,6 +339,7 @@ function getProducts($conn){
   $dataReturned['products']=json_encode($products);
   return json_encode($dataReturned);
 }
+
 function getProductDetails($conn,$product_id){
   $sql = "SELECT * FROM product_details where product_id=? ;";
   $stmt = mysqli_stmt_init($conn);
@@ -329,16 +352,61 @@ function getProductDetails($conn,$product_id){
   $resultData = mysqli_stmt_get_result($stmt);
   
   if ($row = mysqli_fetch_assoc($resultData)){
-    mysqli_stmt_close($stmt);
     $dataReturned=array();
     $dataReturned['stock']=$row['stock'];
     $dataReturned['img2']=$row['photo2_link'];
     $dataReturned['img3']=$row['photo3_link'];
     $dataReturned['review']=$row['review'];
+    $reviews=array();
+    $reviews[1]=getReviewsNumber($conn,$product_id,1);
+    $reviews[2]=getReviewsNumber($conn,$product_id,2);
+    $reviews[3]=getReviewsNumber($conn,$product_id,3);
+    $reviews[4]=getReviewsNumber($conn,$product_id,4);
+    $reviews[5]=getReviewsNumber($conn,$product_id,5);
+    $dataReturned['reviews']=$reviews;
+
     return json_encode($dataReturned);
   }
   return false;
 }
+function getReviewsNumber($conn,$product_id,$value){
+  $sql = "SELECT count(*) FROM user_review where product_id=? and review=?";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "ss", $product_id,$value);
+  mysqli_stmt_execute($stmt);
+  $resultData = mysqli_stmt_get_result($stmt);
+  $result = mysqli_fetch_assoc($resultData);
+  return $result['count(*)'];
+}
+
+function leaveReview($conn,$product_id,$reviewValue){
+  $sql = "INSERT INTO  user_review (product_id,user_id,review) values (?,?,?); ";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt,$sql)){
+    //
+  }
+  mysqli_stmt_bind_param($stmt,"sss",$product_id,$_SESSION['userId'],$reviewValue);
+  if (mysqli_stmt_execute($stmt))
+    return true;
+  else 
+    return false;
+}
+function getUserReview($conn,$product_id){
+  $sql = "SELECT count(*) FROM user_review where product_id=? and user_id=?";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "ss", $product_id,$_SESSION['userId']);
+  mysqli_stmt_execute($stmt);
+  $resultData = mysqli_stmt_get_result($stmt);
+  $result = mysqli_fetch_assoc($resultData);
+  return $result['count(*)'];
+}
+
 function returnSignupStatus($status, ...$args) {
   $arr = array();
   $arr['status'] = $status;
@@ -410,5 +478,16 @@ function returnResetPassStatus($status,...$args){
   echo (json_encode($arr));
   exit;
 }
-
+function returnReviewProduct($status){
+  $arr =array();
+  $arr['status']=$status;
+  echo (json_encode($arr));
+  exit;
+}
+function returnGetUserReview($status,...$args){
+  $arr = array();
+  $arr['status']=$status;
+  echo (json_encode($arr));
+  exit;
+}
 ?>

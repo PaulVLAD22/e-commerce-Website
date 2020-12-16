@@ -1,11 +1,11 @@
 import React,{useState} from 'react';
 import {Spring} from 'react-spring/renderprops';
+import $ from 'jquery'
 
 
-
-const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,review,comments,likeNr})=>{
+const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,reviews,comments,likeNr,reviewed})=>{
+  console.log(reviewed)
   const imgArray=[img,img2,img3];
-
   const [imgCurrentIndex,SetImgCurrentIndex]= useState(0);
   const addToCart=()=>{
     // php post adaugam un cart item cu quantity=1  product_id={id} user_id ={id}
@@ -24,9 +24,23 @@ const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,review,comme
     // post catre php adaugi product_comment pt produsul cu id = {id}
     window.location.reload();
   }
+  
   // FA SPRING PT POZE ( FA COMPONENT DACA NU MERGE SPRING LA TAG BASIC)
-  // flex-column la descriere produs si pune sub comentari
+  
   //BUTTON DE BACK TO HOME
+
+  //review stars
+  const leaveReview = async (value) =>{
+    const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/reviewProduct.php',{session_id:sessionStorage.getItem("session_id"),
+                                                                          username:sessionStorage.getItem("username"),product_id:id,reviewValue:value}))
+    console.log(ans)
+    const postResponse=JSON.parse(ans)
+    if (postResponse.status)
+      document.getElementById("reviewDiv").innerHTML="<h3>Thank you for your feedback</h3>"
+    else
+      document.getElementById("reviewDiv").innerHTML="<h3>Error (try again)</h3>"
+  }
+
   return (
     <Spring
     from = {{opacity:0,marginTop:500}}
@@ -43,7 +57,14 @@ const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,review,comme
         </div>
         <div className="container-product-page d-flex flex-column align-items-center justify-content-center col-10 col-xl-5 col-lg-5 col-md-5 col-sm-10" >
           <div className="rating">
-            {review}/5
+            {// FA PARTEA ASTA FRUMOASA , CU GRAF}
+            }
+            <h2>Reviews:</h2>
+            <h3>1:{reviews[1]}</h3>
+            <h3>2:{reviews[2]}</h3>
+            <h3>3:{reviews[3]}</h3>
+            <h3>4:{reviews[4]}</h3>
+            <h3>5:{reviews[5]}</h3>
           </div>
             <section className='product-page-descr text-justify text-center'>
               <h3>Name: {name}</h3>
@@ -62,14 +83,30 @@ const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,review,comme
                   </span>
                 )
               })}
-              {sessionStorage.getItem("username")!==null &&
+              {(sessionStorage.getItem("username")!==null) &&
+              <>
+              {reviewed!==1 &&
+              <>
+              <h3 className="font-weight-bold">Leave a review:</h3>
+              <div className="d-flex flex-row" id="reviewDiv">
+                <span onClick={()=>leaveReview(1)} id="star-1" className="fa fa-star"></span>
+                <span onClick={()=>leaveReview(2)} id="star-2" className="fa fa-star"></span>
+                <span onClick={()=>leaveReview(3)} id="star-3" className="fa fa-star"></span>
+                <span onClick={()=>leaveReview(4)} id="star-4" className="fa fa-star"></span>
+                <span onClick={()=>leaveReview(5)} id="star-5" className="fa fa-star"></span>
+              </div>
+              </>
+              }
+              <article>
               <form className='comment-form d-flex flex-column justify-content-center' onSubmit={addComment}>
                 <label>Comment:</label>
                 <input type='text' className='w-100' name='commentText'></input>
-                <button type='submit' className='btn-dark'>Post</button>
+                <br></br>
+                <button type='submit' className='btn-dark w-25'>Post</button>
               </form>
+              </article>
+              </>
               }
-             
             </div>
         </div>
       </div>
