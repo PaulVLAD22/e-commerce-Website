@@ -6,8 +6,8 @@ const  ProductsApp = ({products,productNames})=> {
   console.log(products)
   console.log(productNames)
   // AICI POT FACE INCA O BARA SUB CEA CE ALEGE PRODUSUL PT A ALEGE CUM SORTEZI PRODUSELE SAU SA LE FILTEREZI
-  const [productName,setProductName]=useState("Laptop");
   const [productNameIndex,setProductNameIndex] = useState(0);
+  const [productName,setProductName]=useState(productNames[productNameIndex]);
 
   const displayProduct=(event)=>{
     setProductName(event.target.id);

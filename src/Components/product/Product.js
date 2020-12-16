@@ -2,26 +2,24 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import ProductPage from './ProductPage'
 import {Spring} from 'react-spring/renderprops'
+import {getProductDetails} from '../../data/products'
+import $ from 'jquery'
 
 
-
-
-const Product = ({id,img,name,brand,descr,price})=>{
-  const openProductPage = () =>{
-    console.log(id,img,name,brand,descr,price);
-    var stock = 2
-    var img2 = "https://s13emagst.akamaized.net/products/31486/31485260/images/res_189c46500218b3ae33ebe820ffbbe643.jpg?width=450&height=450&hash=5E470DA47E018DE329FC6BD8BEEC7B4C"
-    var img3 = "https://s13emagst.akamaized.net/products/31486/31485260/images/res_82e9b64414d9c52cdd2077b1da5e7f98.jpg?width=450&height=450&hash=568BFC4E61606D2CAD65D34162713D96"
-    var review =3.5
+const Product = ({id,type,img,name,brand,descr,price})=>{
+  const openProductPage = async () =>{
+    const productDetails = await getProductDetails(id)
+    console.log(productDetails)
+    var stock = productDetails.stock
+    var img2 = productDetails.img2
+    var img3 = productDetails.img3
+    var review =productDetails.review
     var comments=[{user:'User123',likesNr:'20',comment:"It's ok"}]; // fa-l array de obiecte fiecare ob are user-ul like-urile si comentu
     ReactDOM.render(
       <ProductPage key={id} img={img} name={name} brand={brand} descr={descr}
       price={price} stock={stock} img2={img2} img3={img3} review={review}
       comments={comments}/>,
     document.getElementById('main'));
-    //get cu query in product_details si iei restul datelor // post si cu ajutorul datelor de la post iau din php product_details.
-    // windows.open localhost:/?product_id=212
-    // si faci get cu informatii
   }
   return (
     <Spring

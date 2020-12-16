@@ -289,6 +289,7 @@ function getProducts($conn){
   
   while ($row = $resultData->fetch_array()){
     array_push($productNames,$row['product_type_name']);
+    
     $products_temp=array();
     $sql2 = "SELECT * FROM products where product_type_name=? ;";
     $stmt2= mysqli_stmt_init($conn);
@@ -299,14 +300,45 @@ function getProducts($conn){
     mysqli_stmt_execute($stmt2);
     $productsResult=mysqli_stmt_get_result($stmt2);
     while ($productsRow = $productsResult->fetch_array()){
-      // PUNE IN PRODUCT TEMP APOI IN products[$row[product_type_name]=products_temp]
+      $object=array();
+      $object['id']=$productsRow['product_id'];
+      $object['type']=$productsRow['product_type_name'];
+      $object['name']=$productsRow['product_name'];
+      $object['brand']=$productsRow['product_brand'];
+      $object['descr']=$productsRow['product_description'];
+      $object['price']=$productsRow['product_price'];
+      $object['img']=$productsRow['photo_link'];
+      array_push($products_temp,$object);
     }
-
-
+    $products[$row['product_type_name']]=$products_temp;
   }
-  return [json_encode($productNames),json_encode($products)];
+  $dataReturned=array();
+  $dataReturned['productNames']=json_encode($productNames);
+  $dataReturned['products']=json_encode($products);
+  return json_encode($dataReturned);
 }
-
+function getProductDetails($conn,$product_id){
+  $sql = "SELECT * FROM product_details where product_id=? ;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt,$sql)){
+    //error
+  }
+  mysqli_stmt_bind_param($stmt,"s",$product_id);
+  mysqli_stmt_execute($stmt);
+  
+  $resultData = mysqli_stmt_get_result($stmt);
+  
+  if ($row = mysqli_fetch_assoc($resultData)){
+    mysqli_stmt_close($stmt);
+    $dataReturned=array();
+    $dataReturned['stock']=$row['stock'];
+    $dataReturned['img2']=$row['photo2_link'];
+    $dataReturned['img3']=$row['photo3_link'];
+    $dataReturned['review']=$row['review'];
+    return json_encode($dataReturned);
+  }
+  return false;
+}
 function returnSignupStatus($status, ...$args) {
   $arr = array();
   $arr['status'] = $status;
