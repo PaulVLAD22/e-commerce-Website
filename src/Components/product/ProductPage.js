@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import {Spring} from 'react-spring/renderprops';
 import $ from 'jquery'
+import ReviewsMenu from '../ReviewsMenu';
 
 
 const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,reviews,comments,likeNr,reviewed})=>{
@@ -56,7 +57,7 @@ const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,reviews,comm
           <button className={(imgCurrentIndex===2? "btn-disabled":"btn-dark")} onClick={displayNextImg}>&#62;</button>
         </div>
         <div className="container-product-page d-flex flex-column align-items-center justify-content-center col-10 col-xl-5 col-lg-5 col-md-5 col-sm-10" >
-          <div className="rating">
+          {/* <div className="rating">
             {// FA PARTEA ASTA FRUMOASA , CU GRAF}
             }
             <h2>Reviews:</h2>
@@ -65,7 +66,8 @@ const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,reviews,comm
             <h3>3:{reviews[3]}</h3>
             <h3>4:{reviews[4]}</h3>
             <h3>5:{reviews[5]}</h3>
-          </div>
+          </div> */}
+          <ReviewsMenu></ReviewsMenu>
             <section className='product-page-descr text-justify text-center'>
               <h3>Name: {name}</h3>
               <h3>Brand: {brand}</h3>
