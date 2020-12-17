@@ -1,9 +1,8 @@
-#Technologies Used:
+<h2>Technologies Used:</h2>
+<li>Front-End: HTML/CSS/JS-React.js</li>
+<li>Back-End: PHP-PhpMailer</li>
 
-<h2>Front-End: HTML/CSS/JS-React.js</h2>
-<h2>Back-End: PHP-PhpMailer</h2>
-
-#Home Page:
+<h1>Home Page:</h1>
 <img src="https://i.imgur.com/RmeowM3.png">
 #Product Page:
 <img src="https://i.imgur.com/PqguZki.png">
