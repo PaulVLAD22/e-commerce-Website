@@ -1,5 +1,5 @@
 <h2>Technologies Used:</h2>
-<h3>Front-End: HTML/CSS/JS-React.js</h3>
+<h3>React.js(+HTML/CSS/JS)</h3>
 <h3>Back-End:Jquery,PHP-PhpMailer</h3>
 
 <h1>Home Page:</h1>
