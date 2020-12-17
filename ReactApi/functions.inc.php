@@ -356,7 +356,7 @@ function getProductDetails($conn,$product_id){
     $dataReturned['stock']=$row['stock'];
     $dataReturned['img2']=$row['photo2_link'];
     $dataReturned['img3']=$row['photo3_link'];
-    $dataReturned['review']=$row['review'];
+    $dataReturned['review']=0;
     $reviews=array();
     $reviews[1]=getReviewsNumber($conn,$product_id,1);
     $reviews[2]=getReviewsNumber($conn,$product_id,2);
@@ -364,13 +364,13 @@ function getProductDetails($conn,$product_id){
     $reviews[4]=getReviewsNumber($conn,$product_id,4);
     $reviews[5]=getReviewsNumber($conn,$product_id,5);
     $dataReturned['reviews']=$reviews;
-
+    $dataReturned['comments']=getProductComments($conn,$product_id);
     return json_encode($dataReturned);
   }
   return false;
 }
 function getReviewsNumber($conn,$product_id,$value){
-  $sql = "SELECT count(*) FROM user_review where product_id=? and review=?";
+  $sql = "SELECT count(*) FROM user_review where product_id=? and review=?;";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)) {
     //error
@@ -380,6 +380,44 @@ function getReviewsNumber($conn,$product_id,$value){
   $resultData = mysqli_stmt_get_result($stmt);
   $result = mysqli_fetch_assoc($resultData);
   return $result['count(*)'];
+}
+function getProductComments($conn,$product_id){
+  $sql = "SELECT * from product_comment where product_id =?;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "s", $product_id);
+  mysqli_stmt_execute($stmt);
+  $resultData = mysqli_stmt_get_result($stmt);
+  $comments=[];
+  while ($row = $resultData->fetch_assoc()){
+    $arrayTemp=array();
+    $arrayTemp['comment_id']=$row['comment_id'];
+    $arrayTemp['username']=getUsernameById($conn,$row["user_id"]);
+    $arrayTemp['comment_likes']=$row['comment_likes'];
+    $arrayTemp['comment_text']=$row['comment_text'];
+    $arrayTemp['comment_date']=$row['comment_date'];
+    array_push($comments,$arrayTemp);
+  }
+  return $comments;
+}
+function userLikedComment($conn,$comment_id){
+  $sql = "SELECT count(*) FROM user_liked_comment  where comment_id=? and user_id=?";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "ss", $comment_id,$_SESSION['userId']);
+  mysqli_stmt_execute($stmt);
+  $resultData = mysqli_stmt_get_result($stmt);
+  $result = mysqli_fetch_assoc($resultData);
+  if($result['count(*)']==1){
+    return 1;
+  }
+  else{
+    return 0;
+  }
 }
 
 function leaveReview($conn,$product_id,$reviewValue){
@@ -394,6 +432,19 @@ function leaveReview($conn,$product_id,$reviewValue){
   else 
     return false;
 }
+function getUsernameById($conn,$user_id){
+  $sql = "SELECT * FROM users where user_id=?;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "s", $user_id);
+  mysqli_stmt_execute($stmt);
+  $resultData = mysqli_stmt_get_result($stmt);
+  $result = mysqli_fetch_assoc($resultData);
+  return $result['username'];
+}
+
 function getUserReview($conn,$product_id){
   $sql = "SELECT count(*) FROM user_review where product_id=? and user_id=?";
   $stmt = mysqli_stmt_init($conn);
@@ -406,7 +457,117 @@ function getUserReview($conn,$product_id){
   $result = mysqli_fetch_assoc($resultData);
   return $result['count(*)'];
 }
+function likeComment($conn,$comment_id){
+  $sql="INSERT INTO user_liked_comment values (?,?)";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "ss",$_SESSION['userId'],$comment_id);
+  mysqli_stmt_execute($stmt);
+  
+  $sql2="UPDATE product_comment set comment_likes=comment_likes+1 where comment_id=?";
+  $stmt2 = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt2, $sql2)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt2, "s",$comment_id);
+  mysqli_stmt_execute($stmt2);
+  return 1;
+}
+function addComment($conn,$product_id,$comment_text){
+  $sql="INSERT INTO product_comment (user_id,product_id,comment_likes,comment_text,comment_date) values (?,?,0,?,sysdate())";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "sss",$_SESSION['userId'],$product_id,$comment_text);
+  if(!mysqli_stmt_execute($stmt))
+    return 0;
+  return 1;
+}
+function addToCart($conn,$product_id){
+  $sql="INSERT INTO cart_item (user_id,product_id) values (?,?);";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "ss",$_SESSION['userId'],$product_id);
+  if(!mysqli_stmt_execute($stmt))
+    return 0;
+  return 1;
+}
+function getCartItems($conn){
+  $sql = "SELECT * FROM cart_item where user_id=?";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "s",$_SESSION['userId']);
+  if(!mysqli_stmt_execute($stmt))
+    return 0;
+  $cartItems=array();
+  $resultData = mysqli_stmt_get_result($stmt);
+  while ($row = $resultData->fetch_assoc()){
+    $arrayTemp=array();
+    $product=getProductById($conn,$row['product_id']);
+    $arrayTemp['id']=$product['product_id'];
+    $arrayTemp['productType']=$product['product_type_name'];
+    $arrayTemp['name']=$product['product_name'];
+    $arrayTemp['price']=$product['product_price'];
+    $arrayTemp['img']=$product['photo_link'];
+    array_push($cartItems,$arrayTemp);
+  } 
+  return $cartItems;
+}
+function getProductById($conn,$product_id){
+  $sql = "SELECT * FROM products where product_id=?;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "s", $product_id);
+  mysqli_stmt_execute($stmt);
+  $resultData = mysqli_stmt_get_result($stmt);
+  $result = mysqli_fetch_assoc($resultData);
+  return $result;
+}
+function insertOrder($conn){
+  $sql = "INSERT INTO orders (user_id,order_date) values (?,sysdate()); ";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt,$sql)){
+    //
+  }
+  mysqli_stmt_bind_param($stmt,"s",$_SESSION['userId']);
+  if (!mysqli_stmt_execute($stmt))
+    return false;
+  return true;
+}
+function getOrderByUserId($conn,$user_id){
+  $sql = "SELECT * FROM orders where user_id=?;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "s", $user_id);
+  mysqli_stmt_execute($stmt);
+  $resultData = mysqli_stmt_get_result($stmt);
+  $result = mysqli_fetch_assoc($resultData);
+  return $result;
+}
+function addOrderItem($conn,$product_id,$order_id){
 
+}
+
+function sendOrder($conn,$cartItems_ids){
+  if (insertOrder($conn)!==false){
+    $order_id = getOrderByUserId($conn,$_SESSION['userId']);
+
+  }
+  return false;
+  
+  
+}
 function returnSignupStatus($status, ...$args) {
   $arr = array();
   $arr['status'] = $status;

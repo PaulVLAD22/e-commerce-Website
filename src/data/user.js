@@ -15,3 +15,13 @@ export async function getUserReview(product_id){
   const postResponse = JSON.parse(ans)
   return postResponse;    
 }
+export async function getLikedComments(comments){
+  var comments_ids=[];
+  comments.map((comment)=> comments_ids.push(comment.comment_id))
+  const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/getUserCommentsLiked.php', {comments_ids:comments_ids,session_id:sessionStorage.getItem("session_id"),
+                                                                                     username: sessionStorage.getItem("username"),
+                                                                                    }))
+  console.log(ans)
+  const postResponse = JSON.parse(ans)
+  return postResponse
+}

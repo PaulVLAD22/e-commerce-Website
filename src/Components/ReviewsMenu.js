@@ -1,65 +1,25 @@
 import React from 'react'
 
 
-const ReviewsMenu= () =>{
+const ReviewsMenu= ({reviews}) =>{
     return (
-        <div class="row">
-  <div class="side">
-    <div>5 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-5"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>150</div>
-  </div>
-  <div class="side">
-    <div>4 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-4"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>63</div>
-  </div>
-  <div class="side">
-    <div>3 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-3"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>15</div>
-  </div>
-  <div class="side">
-    <div>2 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-2"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>6</div>
-  </div>
-  <div class="side">
-    <div>1 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-1"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>20</div>
-  </div>
-</div>
-    )
+      <div className="container d-flex flex-column justify-content-around align-items-center">
+        {Object.keys(reviews).reverse().map((key)=>{
+          var sumTemp=0;
+          Object.keys(reviews).map((key)=>{sumTemp+=parseInt(reviews[key])})
+          const percentOfSum=(100*reviews[key])/sumTemp
+          return (
+            <div key={key} className="row review-row">
+              <h3>{key +" stars"}</h3>
+              <div className="bar-container">
+                <div className="bar" style={{width:percentOfSum+"%",height:"18px"}}></div>
+              </div>
+              <h3>{reviews[key]}</h3>
+            </div>
+          )
+        })
+        }
+      </div>
+    );
 }
 export default ReviewsMenu

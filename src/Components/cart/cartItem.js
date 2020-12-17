@@ -3,8 +3,8 @@ import { Spring } from 'react-spring/renderprops';
 
 // FA FAZA CU BUTON CU SAVE CARE SA SALVEZE IN BAZA DE DATE NUMARUL DE PRODUSE PE CARE L AM ALES
 // (daca fac cantitatea 0 sa se sterga cart item-ul)
-const CartItem = ({id,productType,img,name,price,quantity}) =>{
-  const [productQuantity,setProductQuantity]= useState(quantity);
+const CartItem = ({id,productType,img,name,price}) =>{
+  const [productQuantity,setProductQuantity]= useState(1)
   const decreaseQuantity = () =>{
     if (productQuantity!=1)
     setProductQuantity(productQuantity-1);
@@ -27,7 +27,7 @@ const CartItem = ({id,productType,img,name,price,quantity}) =>{
           <li>Price: {parseInt(price)*parseInt(productQuantity)}$</li>
           <li>
             <button className="btn btn-dark" onClick={decreaseQuantity}>-</button>
-            Quantity: {productQuantity}
+            <span id={"quantity-"+id}>Quantity: {productQuantity}</span>
             <button className="btn btn-dark" onClick={increaseQuantity}>+</button>
           </li>
         </ul>

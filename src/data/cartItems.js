@@ -1,25 +1,12 @@
-// citesc cart_items care user_id = SEssionstorage['user_id'];
-function getCartItems(){
+import $, { post } from 'jquery'
+export async function getCartItems(){
   //aici faci post
-  const cartItems=[
-    {
-      id:1,
-      productType:"smartphone",
-      img:"https://lcdn.altex.ro/resize/media/catalog/product/S/M/16fa6a9aef7ffd6209d5fd9338ffa0b1/SMTA20SBK_2.jpg",
-      name:"Hamster Galaxy S8",
-      price:100,
-      quantity:2
-    },
-    {
-      id:3,
-      productType:"laptop",
-      img:"https://lcdn.altex.ro/resize/media/catalog/product/I/d/16fa6a9aef7ffd6209d5fd9338ffa0b1/IdeaPad_S145-9.jpg",
-      name:"Laptop lenovo legion",
-      price:250,
-      quantity:1
-    }
-  ]
-  console.log("EXECUT CART ITEMS()")
-  return cartItems
+  const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/getCartItems.php', {session_id:sessionStorage.getItem("session_id"),
+                                                                                      username: sessionStorage.getItem("username"),
+                                                                                    }))
+  console.log(ans)
+  const postResponse = JSON.parse(ans)
+  console.log(postResponse)
+  return postResponse
+  
 }
-export {getCartItems}
