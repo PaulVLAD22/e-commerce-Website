@@ -10,5 +10,5 @@
 <img src="https://i.imgur.com/e5xemxR.png">
 <h1>Signup Page</h1>
 <img src="https://i.imgur.com/crM90GU.png">
-<h1>Login Page</h1?
+<h1>Login Page</h1>
 <img src="https://i.imgur.com/xqSb2bC.png">
