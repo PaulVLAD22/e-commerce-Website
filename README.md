@@ -1,6 +1,6 @@
 <h2>Technologies Used:</h2>
-<li>Front-End: HTML/CSS/JS-React.js</li>
-<li>Back-End: PHP-PhpMailer</li>
+<h3>Front-End: HTML/CSS/JS-React.js</h3>
+<h3>Back-End:Jquery,PHP-PhpMailer</h3>
 
 <h1>Home Page:</h1>
 <img src="https://i.imgur.com/RmeowM3.png">
