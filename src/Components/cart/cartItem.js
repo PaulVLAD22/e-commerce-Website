@@ -3,7 +3,8 @@ import { Spring } from 'react-spring/renderprops';
 
 // FA FAZA CU BUTON CU SAVE CARE SA SALVEZE IN BAZA DE DATE NUMARUL DE PRODUSE PE CARE L AM ALES
 // (daca fac cantitatea 0 sa se sterga cart item-ul)
-const CartItem = ({id,productType,img,name,price}) =>{
+const CartItem = ({index,id,productType,img,name,price}) =>{
+  console.log(index)
   const [productQuantity,setProductQuantity]= useState(1)
   const decreaseQuantity = () =>{
     if (productQuantity!=1)
@@ -18,16 +19,16 @@ const CartItem = ({id,productType,img,name,price}) =>{
     to = {{opacity:1}}
     >
       {props => (
-      <div style={props} className=" container-cart row justify-content-around border border-dark align-items-center">
+      <div style={props} className=" container-cart row justify-content-around border  align-items-center">
         <picture className="container container-img ">
-          <img src={img} className="img-fluid "></img>
+          <img src={img} className="img-fluid"></img>
         </picture>
         <ul>
-          <li className="">Name: {name}</li>
+          <li>Name: {name}</li>
           <li>Price: {parseInt(price)*parseInt(productQuantity)}$</li>
           <li>
             <button className="btn btn-dark" onClick={decreaseQuantity}>-</button>
-            <span id={"quantity-"+id}>Quantity: {productQuantity}</span>
+            <span id={"quantity-"+index}>Quantity: {productQuantity}</span>
             <button className="btn btn-dark" onClick={increaseQuantity}>+</button>
           </li>
         </ul>
