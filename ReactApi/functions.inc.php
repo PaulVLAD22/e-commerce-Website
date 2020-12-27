@@ -533,7 +533,7 @@ function getProductById($conn,$product_id){
   return $result;
 }
 function insertOrder($conn){
-  $sql = "INSERT INTO orders (user_id,order_date) values (?,sysdate()); ";
+  $sql = "INSERT INTO orders (user_id,order_date,status) values (?,sysdate(),'inactive'); ";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt,$sql)){
     //
@@ -543,8 +543,9 @@ function insertOrder($conn){
     return false;
   return true;
 }
+
 function getOrderByUserId($conn,$user_id){
-  $sql = "SELECT * FROM orders where user_id=?;";
+  $sql = "SELECT * from orders where user_id=? order by order_id desc limit 1;";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)) {
     //error
@@ -553,20 +554,67 @@ function getOrderByUserId($conn,$user_id){
   mysqli_stmt_execute($stmt);
   $resultData = mysqli_stmt_get_result($stmt);
   $result = mysqli_fetch_assoc($resultData);
-  return $result;
+  return $result['order_id'];
 }
-function addOrderItem($conn,$product_id,$order_id){
-
-}
-
-function sendOrder($conn,$cartItems_ids){
-  if (insertOrder($conn)!==false){
-    $order_id = getOrderByUserId($conn,$_SESSION['userId']);
-
+function clearUserCart($conn,$user_id){
+  $sql = "DELETE FROM cart_item where user_id=?";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
   }
-  return false;
+  mysqli_stmt_bind_param($stmt, "s", $user_id);
+  mysqli_stmt_execute($stmt);
+}
+function reduceStock($conn,$cartItems_id_qu){
+  for ($i=0;$i<sizeof($cartItems_id_qu);$i++){
+    $sql = "UPDATE product_details set stock=stock-? where product_id=?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+      //error
+    }
+    mysqli_stmt_bind_param($stmt, "ss", $cartItems_id_qu[$i][1],$cartItems_id_qu[$i][0]);
+    mysqli_stmt_execute($stmt);
+  }
+}
+function sendOrder($conn,$cartItems_id_qu){
+  if(checkProducts($conn,$cartItems_id_qu)!==true){
+    return json_encode([0,'Not enough items in stock']);
+  }
+  if (insertOrder($conn)!==false){
+    reduceStock($conn,$cartItems_id_qu);
+    clearUserCart($conn,$_SESSION['userId']);
+    $order_id = getOrderByUserId($conn,$_SESSION['userId']);
+    for ($i=0;$i<sizeof($cartItems_id_qu);$i++){
+      $sql = "INSERT INTO order_item (order_id,product_id,quantity) values (?,?,?); ";
+      $stmt = mysqli_stmt_init($conn);
+      if (!mysqli_stmt_prepare($stmt,$sql)){
+        //
+      }
+      mysqli_stmt_bind_param($stmt,"sss",$order_id,$cartItems_id_qu[$i][0],$cartItems_id_qu[$i][1]);
+      if (!mysqli_stmt_execute($stmt))
+        return false;
+    }
+  }
+  return json_encode([1,'Order sent']);
   
   
+}
+function checkProducts($conn,$cartItems_id_qu){
+  for ($i=0;$i<sizeof($cartItems_id_qu);$i++){
+    $sql="SELECT stock from product_details where product_id=?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+      //error
+    }
+    mysqli_stmt_bind_param($stmt, "s", $cartItems_id_qu[$i][0]);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    $result = mysqli_fetch_assoc($resultData);
+    if ($result['stock']<$cartItems_id_qu[$i][1]){
+      return false;
+    }
+  }
+  return true;
 }
 function returnSignupStatus($status, ...$args) {
   $arr = array();
@@ -651,4 +699,3 @@ function returnGetUserReview($status,...$args){
   echo (json_encode($arr));
   exit;
 }
-?>

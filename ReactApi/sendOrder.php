@@ -13,8 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($_POST['username']!=$_SESSION['username']){
     returnGetUserReview(0);
   }
-  $cartItems_ids = $_POST['cartItems_ids'];
-  echo (sendOrder($conn,$cartItems_ids));
+  $cartItems_id_qu = $_POST['cartItems_id_qu'];
+
+  echo (sendOrder($conn,$cartItems_id_qu));
   exit;
 }
 
