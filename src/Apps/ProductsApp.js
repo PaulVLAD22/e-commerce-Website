@@ -17,7 +17,7 @@ const  ProductsApp = ({products,productNames})=> {
         setProductNameIndex(productNameIndex-3);
   }
   const increaseProductNameIndex = ()=>{
-    if (productNameIndex<=productNames.length-3)
+    if (productNameIndex<productNames.length-3)
         setProductNameIndex(productNameIndex+3);
     else if (productNameIndex<productNames.length-3)
         setProductNameIndex(productNameIndex+(productNames.length-productNameIndex-3));
