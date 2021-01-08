@@ -20,6 +20,7 @@ const  LogInApp = () => {
         console.log(postResponse)
         if (postResponse.isAdmin==0){
           if (postResponse.isActive){
+            sessionStorage.setItem("loginType","user")
             sessionStorage.setItem("username",postResponse.username)
             sessionStorage.setItem('session_id',postResponse.session_id);     
             window.location.href="index.html"       
@@ -31,10 +32,19 @@ const  LogInApp = () => {
           }
         }
         else{
-          if (postResponse.isAdmin==1)
-            window.location.href="admin.html";
-          else if (postResponse.isAdmin==2)
-            window.location.href="owner.html";
+          if (postResponse.isAdmin==1){
+            sessionStorage.setItem("loginType","admin")
+            sessionStorage.setItem("username",postResponse.username)
+            sessionStorage.setItem('session_id',postResponse.session_id);   
+            window.location.href="index.html"         
+            
+          }
+          else if (postResponse.isAdmin==2){
+            sessionStorage.setItem("loginType","owner")
+            sessionStorage.setItem("username",postResponse.username)
+            sessionStorage.setItem('session_id',postResponse.session_id);     
+            window.location.href="index.html";
+          }
         }
       }
       else{
