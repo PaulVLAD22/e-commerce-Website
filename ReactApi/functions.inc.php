@@ -636,6 +636,8 @@ function returnLoginStatus($status, ...$args) {
     $arr['session_id']=$args[1];
     $arr['isAdmin']= $args[2];
     $arr['isActive']=$args[3];
+    
+    $_SESSION['loginType']=$args[2];
   }
   echo (json_encode($arr));
   exit;

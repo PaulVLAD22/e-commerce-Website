@@ -7,6 +7,19 @@ import CheckoutApp from './Apps/CheckoutApp'
 import MainNavBar from './Components/navbars/MainNavBar'
 import AccountDetails from './Components/Forms/AccountDetails'
 import {getProducts} from './data/products'
+import $ from 'jquery'
+
+async function getLoginType(){
+  const ans =await Promise.resolve($.post('http://localhost:8000/ReactApi/getLoginType.php', {session_id:sessionStorage.getItem("session_id")}))
+  console.log(ans)
+  var json_returned=JSON.parse(ans)
+  window.loginType=json_returned['loginType']
+}
+// tre sa iau valoarea din getLoginType a json_returned['loginType'] si sa o pun in window.loginType
+
+window.loginType=-10
+getLoginType()
+console.log(window.loginType)
 
 window.addEventListener("storage", function () {
   window.location.href="error.html"
