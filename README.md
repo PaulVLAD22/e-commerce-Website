@@ -1,7 +1,7 @@
 <h2>Short Description</h2>
 E-commerce website project done in order to exercise React, PHP and MySQL. The site's content is generated dynamically, getting data from a MySQL database.
 <h2>Technologies Used:</h2>
-<p>Front-End:  React.js - Spring (+HTML/CSS/JS)</p>
+<p>Front-End:  React.js - React Spring (+HTML/CSS/JS)</p>
 <p>Back-End: Jquery, PHP - PhpMailer, MySQL</p>
 <h1>Home Page:(not logged)</h1>
 <img src="https://i.imgur.com/RmeowM3.png">
