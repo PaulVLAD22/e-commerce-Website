@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
+import './authentification.css'
 import ProductsApp from './Apps/ProductsApp'
 import AuthentificationApp from './Apps/AuthentificationApp'
 import CheckoutApp from './Apps/CheckoutApp'
 import MainNavBar from './Components/navbars/MainNavBar'
+import AdminNavBar from './Components/navbars/AdminNavBar'
 import AccountDetails from './Components/Forms/AccountDetails'
 import {getProducts} from './data/products'
 import $ from 'jquery'
@@ -34,7 +36,7 @@ if (sessionStorage.getItem("loginType")=="user" || sessionStorage.getItem("login
 }
 if (sessionStorage.getItem("loginType")=="admin"){
   ReactDOM.render(
-    <h2>ADADADADA</h2>,
+    <AdminNavBar></AdminNavBar>,
   document.getElementById('main-navbar'));
 }
 
