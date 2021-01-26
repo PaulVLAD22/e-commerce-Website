@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import '../authentification.css';
+
 import LogInForm from '../Components/Forms/LogInForm';
 import SignUpForm from '../Components/Forms/SignUpForm';
 import {Spring} from 'react-spring/renderprops';
