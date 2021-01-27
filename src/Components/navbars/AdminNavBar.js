@@ -27,7 +27,7 @@ const AdminNavBar = () =>{
         <a className="nav-link" id="checkoutNavBar" onClick={displayAddProduct}>Add Product</a>
       </li>
       <li className="nav-item">
-        <a classname="nav-link" id="adminLabelNavBar">Admin Account</a>
+        <a className="nav-link" id="adminLabelNavBar">Admin Account</a>
      </li>
     </ul>
   )

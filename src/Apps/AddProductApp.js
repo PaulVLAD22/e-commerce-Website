@@ -1,19 +1,81 @@
 import React,{useState} from 'react';
-import AddProductForm from '../Components/Forms/AddProductForm';
+import ReactDOM from 'react-dom'
+import Product from '../Components/product/Product';
 
 const AddProductApp = () =>{
-
+  const displayPreviewProduct=()=>{
+    const productName = document.getElementById("productName").value
+    const productBrand = document.getElementById("productBrand").value
+    const productDescription = document.getElementById("productDescription").value
+    const productPrice = document.getElementById("productPrice").value
+    const productImg1 = document.getElementById("productImg1").value
+      ReactDOM.render(
+        <Product type={"Laptop"} id={1} name={productName} brand={productBrand} description={productDescription} price={productPrice}
+        img={productImg1} preview={1} ></Product>,
+      document.getElementById( "divProductPreview")
+     )
+  }
+  const displayPreviewProductPage=()=>{
+    //product Page
+  }
   return(
-    <div className="d-flex align-items-center ">
+    <div className="d-flex align-items-center overflow-hidden h-100 ">
       <div className="col-5 d-flex flex-column">
-        <AddProductForm ></AddProductForm>
+        <article>
+        <form  className="productForm d-flex flex-column justify-content-center align-items-center">
+          <div className='form-control row'>
+            <label htmlFor="productName">Product Name : </label>
+            <input
+            type="text" id="productName" name="productName"/>
+          </div>
+          <div className='form-control row'>
+            <label htmlFor="productBrand">Product Brand : </label>
+            <input 
+            type="text" id="productBrand" name="productBrand"/>
+          </div>
+        
+          <div className='form-control row '>
+            <label htmlFor="productDescription">Product Description : </label>
+            <textarea 
+             id="productDescription" name="productDescription"/>
+          </div>
+        
+          <div className='form-control row'>
+            <label htmlFor="productPrice">Product Price : </label>
+            <input 
+            type="productPrice" id="productPrice" name="productPrice"/>
+          </div>
+          <div className='form-control row'>
+            <label htmlFor="productStock">Product Stock : </label>
+            <input 
+            type="productStock" id="productStock" name="productStock"/>
+          </div>
+          <div className='form-control row'>
+            <label htmlFor="productImg1">Product Img 1: </label>
+            <input 
+            type="productImg1" id="productImg1" name="productImg1"/>
+          </div>
+          <div className='form-control row'>
+            <label htmlFor="productImg2">Product Img 2: </label>
+            <input 
+            type="productImg2" id="productImg2" name="productImg2"/>
+          </div>
+          <div className='form-control row'>
+            <label htmlFor="productImg3">Product Img 3: </label>
+            <input 
+            type="productImg3" id="productImg3" name="productImg3"/>
+          </div>
+
+        </form>
+        </article>
         <div className=" d-flex flex-column justify-content-center align-items-center">
-        <button className="btn-dark m-2" type="submit">Preview Product</button>
+        <button className="btn-dark m-2" type="submit" onClick={displayPreviewProduct}>Preview Product</button>
+        <button className="btn-dark m-2" type="submit" onClick={displayPreviewProductPage}>Preview Product Page</button>
         <button className="btn-dark m-2" type="submit">Add Product</button>
         </div>
       </div>
-      <div className="col-7">
-      <h2>AICI FA PRODUCT CU CE A INTRODUS EL</h2>
+      <div id="divProductPreview" className="col-6 offset-2 align-items-center" style={{transform:"translateY(-50%)"}}>
+      <h2>Preview Product</h2>
       </div>
     </div>
   )
