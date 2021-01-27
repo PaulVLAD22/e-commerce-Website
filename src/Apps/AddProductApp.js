@@ -1,9 +1,11 @@
 import React,{useState} from 'react';
 import ReactDOM from 'react-dom'
 import Product from '../Components/product/Product';
-
+import ProductPage from '../Components/product/ProductPage'
 const AddProductApp = () =>{
+  const [productPreview,setProductPreview] = useState(0);
   const displayPreviewProduct=()=>{
+    setProductPreview(0)
     const productName = document.getElementById("productName").value
     const productBrand = document.getElementById("productBrand").value
     const productDescription = document.getElementById("productDescription").value
@@ -16,7 +18,20 @@ const AddProductApp = () =>{
      )
   }
   const displayPreviewProductPage=()=>{
-    //product Page
+    setProductPreview(1)
+    const productName = document.getElementById("productName").value
+    const productBrand = document.getElementById("productBrand").value
+    const productDescription = document.getElementById("productDescription").value
+    const productPrice = document.getElementById("productPrice").value
+    const productStock = document.getElementById("productStock").value
+    const productImg1 = document.getElementById("productImg1").value
+    const productImg2 = document.getElementById("productImg2").value
+    const productImg3 = document.getElementById("productImg3").value
+    ReactDOM.render(
+      <ProductPage type={"Laptop"} id={1} name={productName} brand={productBrand} descr={productDescription} price={productPrice}
+      img={productImg1} stock={productStock}  img2={productImg2} img3={productImg3} reviews={[]} comments={[]} reviewed={0}  reviewed_comments={[]}></ProductPage>,
+    document.getElementById( "divProductPreview")
+   )
   }
   return(
     <div className="d-flex align-items-center overflow-hidden h-100 ">
@@ -74,7 +89,7 @@ const AddProductApp = () =>{
         <button className="btn-dark m-2" type="submit">Add Product</button>
         </div>
       </div>
-      <div id="divProductPreview" className="col-6 offset-2 align-items-center" style={{transform:"translateY(-50%)"}}>
+      <div id="divProductPreview" className={productPreview==0?"col-6 offset-2 align-items-center":"col-6"} style={{transform: productPreview==0? "translateY(-50%)" : ""}}>
       <h2>Preview Product</h2>
       </div>
     </div>
