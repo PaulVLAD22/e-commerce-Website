@@ -7,6 +7,8 @@ E-commerce website project done in order to exercise React, PHP and MySQL. The s
 <img src="https://i.imgur.com/RmeowM3.png">
 <h1>Product Page:(logged in)</h1>
 <img src="https://i.imgur.com/PqguZki.png">
+<h1>Admin Add Product:(admin logged in)</h1>
+<img src="https://i.imgur.com/nkcCVGW.png">
 <h1>Checkout Page:(logged in)</h1>
 <img src="https://i.imgur.com/hXOb87L.png">
 <h1>Account Details:(logged in)</h1>
