@@ -100,7 +100,7 @@ body {
   background: var(--clr-white);
   max-width: var(--fixed-width);
   margin: 0 auto;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
   padding: 1rem 2rem;
   border-radius: var(--radius);
   display:flex;

@@ -89,7 +89,7 @@ const AddProductApp = () =>{
         <button className="btn-dark m-2" type="submit">Add Product</button>
         </div>
       </div>
-      <div id="divProductPreview" className={productPreview==0?"col-6 offset-2 align-items-center":"col-6"} style={{transform: productPreview==0? "translateY(-50%)" : ""}}>
+      <div id="divProductPreview" className={productPreview==0?"col-6 offset-2 align-items-center":"col-6 bg-light"} style={{transform: productPreview==0? "translateY(-50%)" : ""}}>
       <h2>Preview Product</h2>
       </div>
     </div>

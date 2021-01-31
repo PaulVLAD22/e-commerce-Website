@@ -14,7 +14,7 @@ const MainNavBar = ({data}) =>{
     const productsArray=await getProducts();
     console.log(productsArray[0])
     ReactDOM.render(
-      <ProductsApp key={0} products={productsArray[0]} productNames={productsArray[1]} />,
+      <ProductsApp key={0} products={productsArray[0]} productCategories={productsArray[1]} />,
     document.getElementById('main'));
     }, [])
   
@@ -23,7 +23,7 @@ const MainNavBar = ({data}) =>{
     const productsArray=await Promise.resolve(getProducts());
     console.log(productsArray)
     ReactDOM.render(
-      <ProductsApp products={productsArray[0]} productNames={productsArray[1]}/>,
+      <ProductsApp products={productsArray[0]} productCategories={productsArray[1]}/>,
     document.getElementById('main'));
   }
   const displayAuthentification = () =>{

@@ -1,45 +1,98 @@
 import React,{useState,useEffect} from 'react';
 import  '../index.css';
 import ProductList from '../Components/product/ProductList';
+import { getDefaultNormalizer } from '@testing-library/react';
 
-const  ProductsApp = ({products,productNames})=> {
+const  ProductsApp = ({products,productCategories})=> {
   console.log(products)
-  console.log(productNames)
+  console.log(productCategories)
   // AICI POT FACE INCA O BARA SUB CEA CE ALEGE PRODUSUL PT A ALEGE CUM SORTEZI PRODUSELE SAU SA LE FILTEREZI
-  const [productNameIndex,setProductNameIndex] = useState(0);
-  const [productName,setProductName]=useState(productNames[productNameIndex]);
+  const [productCategoryIndex,setProductCategoryIndex] = useState(0);
+  const [productCategory,setProductCategory]=useState(productCategories[productCategoryIndex]);
+  const [productSearch,setProductSearch]=useState("")
 
   const displayProduct=(event)=>{
-    setProductName(event.target.id);
+    setProductCategory(event.target.id);
   }
-  const decreaseProductNameIndex = ()=>{
-    if (productNameIndex>=3)
-        setProductNameIndex(productNameIndex-3);
+  const decreaseProductCategoryIndex = ()=>{
+    if (productCategoryIndex>=3)
+        setProductCategoryIndex(productCategoryIndex-3);
   }
-  const increaseProductNameIndex = ()=>{
-    if (productNameIndex<productNames.length-3)
-        setProductNameIndex(productNameIndex+3);
-    else if (productNameIndex<productNames.length-3)
-        setProductNameIndex(productNameIndex+(productNames.length-productNameIndex-3));
+  const increaseProductCategoryIndex = ()=>{
+    if (productCategoryIndex<productCategories.length-3)
+        setProductCategoryIndex(productCategoryIndex+3);
+    else if (productCategoryIndex<productCategories.length-3)
+        setProductCategoryIndex(productCategoryIndex+(productCategories.length-productCategoryIndex-3));
+  }
+  const searchCategory = () =>{
+    const input = document.getElementById("searchCategoryInput").value
+    if (productCategories.includes(firstLetter(input.toLowerCase())) )
+      setProductCategory(firstLetter(input.toLowerCase()))
+  }
+  const searchProduct = () =>{
+    setProductSearch("Samsung");
+    const productsSearched=products;
+
+    for (let i=0;i<productsSearched.length;i++){
+      if (productsSearched[i].includes("Samsung")){
+        productsSearched.splice(i,1)
+      }
+    }
+    //verifica aici
+    document.getElementById("productComponents").innerHTML="<ProductList key={productCategory} products={products} productCategory={productCategory}></ProductList>"
+  }
+  function firstLetter(s) {
+
+    return s.replace(/^.{1}/g, s[0].toUpperCase());
+  }
+  
+  const search=()=>{
+    const product = document.getElementById("searchProductInput").value
+    const category = document.getElementById("searchCategoryInput").value
+    if (product==""){
+      searchCategory()
+    }
+    else{
+      searchProduct()
+    }
   }
     return (
       <>
         <nav className="navbar navbar-aux bg-light justify-content-center">
           <ul className="navbar-nav align-items-center justify-content-between flex-row">
-            <button className="btn btn-primary" onClick={decreaseProductNameIndex}>&#60;</button>
-                {productNames.slice(productNameIndex,Math.min(productNameIndex+3,productNames.length)).map((productName,index)=>{
-                    console.log(productNames);
+            <button className="btn btn-primary" onClick={decreaseProductCategoryIndex}>&#60;</button>
+                {productCategories.slice(productCategoryIndex,Math.min(productCategoryIndex+3,productCategories.length)).map((productCategory,index)=>{
+                    console.log(productCategory);
                 return (
                     <li key={index} className="nav-item">
-                        <a className="nav-link" onClick={displayProduct} id={productName}>{productName}</a>
+                        <a className="nav-link" onClick={displayProduct} id={productCategory}>{productCategory}</a>
                     </li>
                   )
                 })}
-            <button className='btn btn-primary' onClick={increaseProductNameIndex}>&#62;</button>
+            <button className='btn btn-primary' onClick={increaseProductCategoryIndex}>&#62;</button>
           </ul>
         </nav>
-        
-        <ProductList key={productName} products={products} productName={productName}></ProductList>
+        <nav className="navbar  justify-content-center d-flex flex-column">
+          <form className="form align-items-center">
+          <div className='form-control row'>
+            <label className="label">Category:</label>
+              <input type="text" placeholder="Search category" id="searchCategoryInput">
+              </input>
+          </div>
+            <div className='form-control row'>
+              <label className="label ">Product:</label>
+              <input type="text" placeholder="Search product" id="searchProductInput">
+              </input>
+            </div>
+            <button type="button" className="btn btn-secondary w-50" onClick={search}>Go</button>
+          </form>
+
+        </nav>
+        <div id="productComponents">
+        { productSearch=="" &&
+        <ProductList key={productCategory} products={products} productCategory={productCategory}></ProductList>
+        }
+        </div>
       </>
     );
 }
