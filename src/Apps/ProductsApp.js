@@ -29,32 +29,14 @@ const  ProductsApp = ({products,productCategories})=> {
     if (productCategories.includes(firstLetter(input.toLowerCase())) )
       setProductCategory(firstLetter(input.toLowerCase()))
   }
-  const searchProduct = () =>{
-    setProductSearch("Samsung");
-    const productsSearched=products;
-
-    for (let i=0;i<productsSearched.length;i++){
-      if (productsSearched[i].includes("Samsung")){
-        productsSearched.splice(i,1)
-      }
-    }
-    //verifica aici
-    document.getElementById("productComponents").innerHTML="<ProductList key={productCategory} products={products} productCategory={productCategory}></ProductList>"
-  }
   function firstLetter(s) {
 
     return s.replace(/^.{1}/g, s[0].toUpperCase());
   }
-  
   const search=()=>{
-    const product = document.getElementById("searchProductInput").value
     const category = document.getElementById("searchCategoryInput").value
-    if (product==""){
-      searchCategory()
-    }
-    else{
-      searchProduct()
-    }
+    searchCategory();
+    
   }
     return (
       <>
@@ -79,11 +61,6 @@ const  ProductsApp = ({products,productCategories})=> {
               <input type="text" placeholder="Search category" id="searchCategoryInput">
               </input>
           </div>
-            <div className='form-control row'>
-              <label className="label ">Product:</label>
-              <input type="text" placeholder="Search product" id="searchProductInput">
-              </input>
-            </div>
             <button type="button" className="btn btn-secondary w-50" onClick={search}>Go</button>
           </form>
 
