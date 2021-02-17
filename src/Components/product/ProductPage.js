@@ -11,8 +11,9 @@ const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,reviews,comm
   const [imgCurrentIndex,SetImgCurrentIndex]= useState(0);
 
   const addToCart=async () =>{
-    const ans =await ($.post('http://localhost:8000/ReactApi/addToCart.php',{session_id:sessionStorage.getItem("session_id"),
-                                                                          username:sessionStorage.getItem("username"),product_id:id}))
+    const ans =await ($.post('http://localhost:8000/ReactApi/addToCart.php',
+    {session_id:sessionStorage.getItem("session_id"),
+    username:sessionStorage.getItem("username"),product_id:id}))
     console.log(ans)
   }
   const displayPreviousImg = () =>{
@@ -27,19 +28,13 @@ const ProductPage = ({id,img,name,brand,descr,price,stock,img2,img3,reviews,comm
   }
   const addComment = async e => {
     e.preventDefault();
-    const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/addComment.php',{session_id:sessionStorage.getItem("session_id"),
-                                                                          username:sessionStorage.getItem("username"),product_id:id,comment_text:commentText}))
-    console.log(ans)
+    const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/addComment.php',
+    {session_id:sessionStorage.getItem("session_id"),                                                                     
+    username:sessionStorage.getItem("username"),product_id:id,comment_text:commentText}))
+    
     window.location.reload()
-    //const postResponse=JSON.parse(ans)
-    //window.location.reload();
-    // DACA NU E LOGAT ATUNCI DAI MESAJ/ INLOCUIESTI BUTONUL/ II DESCHIZI LOG IN-UL
   }
   
-  // FA SPRING PT POZE ( FA COMPONENT DACA NU MERGE SPRING LA TAG BASIC)
-  
-  //BUTTON DE BACK TO HOME
-
   //review stars
   const leaveReview = async (value) =>{
     const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/reviewProduct.php',{session_id:sessionStorage.getItem("session_id"),

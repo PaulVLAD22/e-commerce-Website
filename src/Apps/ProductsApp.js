@@ -33,11 +33,7 @@ const  ProductsApp = ({products,productCategories})=> {
 
     return s.replace(/^.{1}/g, s[0].toUpperCase());
   }
-  const search=()=>{
-    const category = document.getElementById("searchCategoryInput").value
-    searchCategory();
-    
-  }
+
     return (
       <>
         <nav className="navbar navbar-aux bg-light justify-content-center">
@@ -61,7 +57,7 @@ const  ProductsApp = ({products,productCategories})=> {
               <input type="text" placeholder="Search category" id="searchCategoryInput">
               </input>
           </div>
-            <button type="button" className="btn btn-secondary w-50" onClick={search}>Go</button>
+            <button type="button" className="btn btn-secondary w-50" onClick={searchCategory}>Go</button>
           </form>
 
         </nav>

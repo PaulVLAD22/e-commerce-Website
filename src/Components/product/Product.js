@@ -4,7 +4,7 @@ import ProductPage from './ProductPage'
 import {Spring} from 'react-spring/renderprops'
 import {getProductDetails} from '../../data/products'
 import {getUserReview,getLikedComments} from '../../data/user'
-import $ from 'jquery'
+
 
 
 const Product = ({id,type,img,name,brand,descr,price,preview=0})=>{
@@ -25,8 +25,7 @@ const Product = ({id,type,img,name,brand,descr,price,preview=0})=>{
         const commentsResponse = await Promise.resolve(getLikedComments(comments))
         reviewed_comments=commentsResponse
       }
-      // DE FACUT COMMENTS product_comment SI SA POTI SA DAI LIKE LA COMMENT
-      // fa-l array de obiecte fiecare ob are user-ul like-urile si comentu
+      
       ReactDOM.render(
         <ProductPage key={id} id={id} img={img} name={name} brand={brand} descr={descr}
         price={price} stock={stock} img2={img2} img3={img3} reviews={reviews}

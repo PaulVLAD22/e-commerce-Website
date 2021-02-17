@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
   require_once 'dbh.inc.php';
   require_once 'functions.inc.php';
-  // fa trimming
+  
   die (getProductDetails($conn,$product_id));
   exit;
   

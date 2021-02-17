@@ -1,17 +1,15 @@
-import React,{useState} from 'react';
+import React from 'react';
 import CartItem from '../Components/cart/CartItem';
 import {Spring} from 'react-spring/renderprops';
 import {getUserDetails} from '../data/user'
 import $ from 'jquery'
-// BUTTON CU POST REQUEST CARE FACE UN ORDER ID SI ORDER ITEMS PT FIECARE ITEM DIN CART
-// Merge doar daca are account details-urile completate
+
 const CheckoutApp = ({cartItems})=> {
 
   const sendOrder = async () =>{
     const userDetails = await getUserDetails();
     if (userDetails.status===1){
     
-      alert("ok");
       var cartItems_quantities=[];
       for (let i=0;i<cartItems.length;i++){
         cartItems_quantities.push(document.getElementById("quantity-"+i).innerText)
@@ -24,8 +22,7 @@ const CheckoutApp = ({cartItems})=> {
       catch(err){
         window.location.reload()
       }
-      console.log(cartItems_quantities)
-      //FOLOSESTE ASTA
+      
       var cartItems_id_qu=[]
       for (let i=0;i<cartItems.length;i++){
         cartItems_id_qu.push([cartItems[i].id,cartItems_quantities[i]])
@@ -39,12 +36,11 @@ const CheckoutApp = ({cartItems})=> {
       document.getElementById('sendOrderBtn').innerHTML=postResponse[1];
       document.getElementById('sendOrderBtn').disabled=true;
       
-      // cod pt a insera order-ul si stergem cartul
     }
     else{
       alert("NU E OK");
     }
-    // verifica daca avem destule piese si verifica daca in sessions avem valoare pentru first Name
+    
   }
   return (
     <Spring

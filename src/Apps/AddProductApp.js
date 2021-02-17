@@ -2,8 +2,10 @@ import React,{useState} from 'react';
 import ReactDOM from 'react-dom'
 import Product from '../Components/product/Product';
 import ProductPage from '../Components/product/ProductPage'
+
 const AddProductApp = () =>{
   const [productPreview,setProductPreview] = useState(0);
+
   const displayPreviewProduct=()=>{
     setProductPreview(0)
     const productName = document.getElementById("productName").value
@@ -17,6 +19,7 @@ const AddProductApp = () =>{
       document.getElementById( "divProductPreview")
      )
   }
+
   const displayPreviewProductPage=()=>{
     setProductPreview(1)
     const productName = document.getElementById("productName").value
@@ -33,6 +36,7 @@ const AddProductApp = () =>{
     document.getElementById( "divProductPreview")
    )
   }
+  
   return(
     <div className="d-flex align-items-center overflow-hidden h-100 ">
       <div className="col-5 d-flex flex-column">

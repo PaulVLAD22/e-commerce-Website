@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $addressStreet = ucfirst($_POST['street']);
   $postalCode = ucfirst($_POST['postalCode']);
 
-  //verificari legate de tari,orase,postal code
+
 
   require_once 'dbh.inc.php';
   require_once 'functions.inc.php';
-  // fa trimming
+  
   if (!validate_name($firstName) || !validate_name($lastName)){
     returnUserDetails(0,'Invalid first name / last name');
   }
