@@ -143,7 +143,6 @@ footer {
   border-radius: 2rem;
 }
 
-
 .container-product:hover{
   cursor: pointer;
   background-color:var(--clr-orange-3);

@@ -1,8 +1,7 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom'
 import AddProductApp from '../../Apps/AddProductApp'
 import RemoveProductApp from '../../Apps/RemoveProductApp'
-import $ from 'jquery';
 
 const AdminNavBar = () =>{
   const displayRemoveProduct=()=>{

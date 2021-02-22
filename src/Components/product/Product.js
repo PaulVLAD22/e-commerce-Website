@@ -7,7 +7,7 @@ import {getUserReview,getLikedComments} from '../../data/user'
 
 
 
-const Product = ({id,type,img,name,brand,descr,price,preview=0})=>{
+const Product = ({id,img,name,brand,descr,price,preview=0})=>{
   console.log(id,img,name,preview)
   const openProductPage = async () =>{
     if (preview==0){

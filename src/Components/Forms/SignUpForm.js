@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import $, { post } from 'jquery'
+import $ from 'jquery'
 const  SignUpApp = () => {
   const [signupRespose,setSignupResponse]=useState('')
   const [password,setPassword] = useState('');

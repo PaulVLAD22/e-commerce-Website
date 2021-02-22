@@ -8,15 +8,13 @@ const  LogInApp = () => {
   const handleSubmit= async e =>{
     e.preventDefault();
 
-    console.log('just testing')
-
     if (validInput()) {
 
       const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/login.php', { username: username, password: password }))
       const postResponse = JSON.parse(ans)
       console.log(ans)
       if (postResponse.status){
-        // FA SA PRIMESTI SI DETALIILE PRECUM FIRST NAME , altfel pune '' in first_name si in celelalte
+        
         console.log(postResponse)
         if (postResponse.isAdmin==0){
           if (postResponse.isActive){

@@ -2,6 +2,8 @@ import React,{useState} from 'react';
 import ReactDOM from 'react-dom'
 import Product from '../Components/product/Product';
 import ProductPage from '../Components/product/ProductPage'
+import $ from 'jquery'
+
 
 const AddProductApp = () =>{
   const [productPreview,setProductPreview] = useState(0);
@@ -35,6 +37,15 @@ const AddProductApp = () =>{
       img={productImg1} stock={productStock}  img2={productImg2} img3={productImg3} reviews={[]} comments={[]} reviewed={0}  reviewed_comments={[]}></ProductPage>,
     document.getElementById( "divProductPreview")
    )
+  }
+
+  const addProduct = async () =>{
+    alert("Not implemented");/*
+    const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/addProduct.php', {
+      session_id:sessionStorage.getItem("session_id"),                                                                               
+      username: sessionStorage.getItem("username")                                                                          
+    }))
+    */
   }
   
   return(
@@ -90,7 +101,7 @@ const AddProductApp = () =>{
         <div className=" d-flex flex-column justify-content-center align-items-center">
         <button className="btn-dark m-2" type="submit" onClick={displayPreviewProduct}>Preview Product</button>
         <button className="btn-dark m-2" type="submit" onClick={displayPreviewProductPage}>Preview Product Page</button>
-        <button className="btn-dark m-2" type="submit">Add Product</button>
+        <button className="btn-dark m-2" type="submit" onClick={addProduct}>Add Product</button>
         </div>
       </div>
       <div id="divProductPreview" className={productPreview==0?"col-6 offset-2 align-items-center":"col-6 bg-light"} style={{transform: productPreview==0? "translateY(-50%)" : ""}}>

@@ -1,6 +1,9 @@
 import React from 'react';
 
 const RemoveProductApp = () =>{
+  const removeProduct = ()=>{
+    alert("Not implemented");
+  }
   return (
     <>
       <article>
@@ -17,7 +20,7 @@ const RemoveProductApp = () =>{
           </div>
           <button className="btn-dark" type="submit">Check for item</button>
 
-          <button className="btn-dark" type="submit">Remove Product</button>
+          <button className="btn-dark" type="submit" onClick={removeProduct}>Remove Product</button>
         </form>
       </article>
     </>

@@ -6,9 +6,9 @@ import CheckoutApp from '../../Apps/CheckoutApp'
 import ProductsApp from '../../Apps/ProductsApp'
 import $ from 'jquery';
 import {getProducts} from '../../data/products'
-import {getCartItems} from '../../data/cartItems'
-import {getUserDetails} from '../../data/user'
+import {getUserDetails,getCartItems} from '../../data/user'
 import AccountInfo from '../AccountInfo';
+
 const MainNavBar = ({data}) =>{
   useEffect(async() => {
     const productsArray=await getProducts();
@@ -47,7 +47,7 @@ const MainNavBar = ({data}) =>{
     }
   }
   const displayCheckoutApp = async () =>{
-    //POST CATRE CART ITEMS care au user_id sessionStorage(user_id)
+    
       const cartItemsArray =await getCartItems();
       ReactDOM.render(
         <CheckoutApp cartItems={cartItemsArray}/>,

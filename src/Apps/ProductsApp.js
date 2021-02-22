@@ -1,12 +1,11 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import  '../index.css';
 import ProductList from '../Components/product/ProductList';
-import { getDefaultNormalizer } from '@testing-library/react';
 
 const  ProductsApp = ({products,productCategories})=> {
   console.log(products)
   console.log(productCategories)
-  // AICI POT FACE INCA O BARA SUB CEA CE ALEGE PRODUSUL PT A ALEGE CUM SORTEZI PRODUSELE SAU SA LE FILTEREZI
+  
   const [productCategoryIndex,setProductCategoryIndex] = useState(0);
   const [productCategory,setProductCategory]=useState(productCategories[productCategoryIndex]);
   const [productSearch,setProductSearch]=useState("")

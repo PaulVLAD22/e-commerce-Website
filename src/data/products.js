@@ -1,4 +1,5 @@
 import $ from 'jquery'
+// get products data from database
 async function getProducts(){
   const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/getProducts.php',{}))
   

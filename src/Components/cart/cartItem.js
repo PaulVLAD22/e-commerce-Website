@@ -1,8 +1,7 @@
 import React,{useState} from 'react';
 import { Spring } from 'react-spring/renderprops';
 
-// FA FAZA CU BUTON CU SAVE CARE SA SALVEZE IN BAZA DE DATE NUMARUL DE PRODUSE PE CARE L AM ALES
-// (daca fac cantitatea 0 sa se sterga cart item-ul)
+
 const CartItem = ({index,id,productType,img,name,price}) =>{
   console.log(index)
   const [productQuantity,setProductQuantity]= useState(1)
