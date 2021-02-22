@@ -1,7 +1,6 @@
 <h2>Short Description</h2>
 E-commerce website project done in order to practice React, PHP and MySQL. The site's content is generated dynamically, getting data from a MySQL database.
-Commands needed to run application:
-npm start, php -S localhost:8000
+<h3>Commands needed to run application: npm start, php -S localhost:8000</h3>
 <h2>Technologies Used:</h2>
 <p>Front-End:  React.js - React Spring (+HTML/CSS/JS)</p>
 <p>Back-End: Jquery, PHP - PhpMailer, MySQL</p>
