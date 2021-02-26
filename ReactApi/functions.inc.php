@@ -612,6 +612,31 @@ function checkProducts($conn,$cartItems_id_qu){
   }
   return true;
 }
+
+function insertProduct($conn,...$args){
+  $sql="INSERT INTO products (product_type_name,product_name,product_brand,product_description,product_price,photo_link) values (?,?,?,?,?,?);";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "ssssss",$args[0],$args[1],$args[2],$args[3],$args[4],$args[5]);
+  if(!mysqli_stmt_execute($stmt))
+    return 0;
+  return 1;
+}
+
+function removeProduct($conn,...$args){
+  $sql="DELETE FROM products where product_name=? and product_brand=?;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    //error
+  }
+  mysqli_stmt_bind_param($stmt, "ss",$args[0],$args[1]);
+  if(!mysqli_stmt_execute($stmt))
+    return 0;
+  return 1;
+}
+
 function returnSignupStatus($status, ...$args) {
   $arr = array();
   $arr['status'] = $status;

@@ -40,12 +40,20 @@ const AddProductApp = () =>{
   }
 
   const addProduct = async () =>{
-    alert("Not implemented");/*
     const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/addProduct.php', {
       session_id:sessionStorage.getItem("session_id"),                                                                               
-      username: sessionStorage.getItem("username")                                                                          
+      username: sessionStorage.getItem("username"),
+      productName:document.getElementById("productName").value,
+      productCategory:document.getElementById("productCategory").value,
+      productBrand:document.getElementById("productBrand").value,
+      productDescription:document.getElementById("productDescription").value,
+      productPrice: document.getElementById("productPrice").value,
+      productStock : document.getElementById("productStock").value,
+      productImg1 : document.getElementById("productImg1").value,
+      productImg2 : document.getElementById("productImg2").value,
+      productImg3 : document.getElementById("productImg3").value                                                                  
     }))
-    */
+    console.log(ans)
   }
   
   return(
@@ -57,6 +65,11 @@ const AddProductApp = () =>{
             <label htmlFor="productName">Product Name : </label>
             <input
             type="text" id="productName" name="productName"/>
+          </div>
+          <div className='form-control row'>
+            <label htmlFor="productCategory">Product Category : </label>
+            <input 
+            type="text" id="productCategory" name="productCategory"/>
           </div>
           <div className='form-control row'>
             <label htmlFor="productBrand">Product Brand : </label>

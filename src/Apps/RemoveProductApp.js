@@ -1,12 +1,21 @@
 import React from 'react';
-
+import $ from 'jquery'
 const RemoveProductApp = () =>{
-  const removeProduct = ()=>{
-    alert("Not implemented");
+
+  const removeProduct =async ()=>{
+    console.log("AA");
+    const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/removeProduct.php', {
+      session_id:sessionStorage.getItem("session_id"),                                                                               
+      username: sessionStorage.getItem("username"),
+      productName:document.getElementById("productName").value,
+      productBrand:document.getElementById("productBrand").value                                                                 
+    }))
+    console.log(ans)
   }
+
   return (
     <>
-      <article>
+      <article className="d-flex flex-column justify-content-center align-items-center">
         <form  className="form d-flex flex-column justify-content-center align-items-center" >
           <div className='form-control row'>
             <label htmlFor="productName">Product Name: </label>
@@ -18,10 +27,8 @@ const RemoveProductApp = () =>{
             <input 
             type="text" id="productBrand" name="productBrand"/>
           </div>
-          <button className="btn-dark" type="submit">Check for item</button>
-
-          <button className="btn-dark" type="submit" onClick={removeProduct}>Remove Product</button>
         </form>
+        <button className="btn-dark" type="submit" onClick={removeProduct}>Remove Product</button>
       </article>
     </>
   )
