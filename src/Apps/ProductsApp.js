@@ -3,9 +3,7 @@ import  '../index.css';
 import ProductList from '../Components/product/ProductList';
 
 const  ProductsApp = ({products,productCategories})=> {
-  console.log(products)
-  console.log(productCategories)
-  
+
   const [productCategoryIndex,setProductCategoryIndex] = useState(0);
   const [productCategory,setProductCategory]=useState(productCategories[productCategoryIndex]);
   const [productSearch,setProductSearch]=useState("")

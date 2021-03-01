@@ -3,7 +3,6 @@ import $ from 'jquery'
 const RemoveProductApp = () =>{
 
   const removeProduct =async ()=>{
-    console.log("AA");
     const ans = await Promise.resolve($.post('http://localhost:8000/ReactApi/removeProduct.php', {
       session_id:sessionStorage.getItem("session_id"),                                                                               
       username: sessionStorage.getItem("username"),
